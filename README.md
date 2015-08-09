@@ -14,7 +14,9 @@ GraphQL server for Github API
 
 Use [Octokat.js](https://github.com/philschatz/octokat.js) API wrapper for a nice DSL.
 
-Use Mongoose to store github data with project data. Why not ;)
+This project will integrate with [Jenkins-graphQL]() using [node-jenkins-api](https://github.com/jansepar/node-jenkins-api)
+
+Perhaps use Mongoose to store github data with project data. Can we then simply use graffiti to expose entire data model as GraphQL?
 
 ```js
 var koa = require('koa');
