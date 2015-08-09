@@ -1,3 +1,7 @@
+// TODO: extract into build folder?
+// var requireDir = require('require-dir');
+// requireDir('build/tasks');
+
 // Load Gulp and all of our Gulp plugins
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();

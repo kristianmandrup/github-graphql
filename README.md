@@ -12,7 +12,7 @@ GraphQL server for Github API
 -	https://github.com/RisingStack/graffiti
 -	https://github.com/RisingStack/graffiti-example
 
-Note: The `/server` folder should be integrated with the project root folder.
+Use [Octokat.js](https://github.com/philschatz/octokat.js) API wrapper for a nice DSL.
 
 Use Mongoose to store github data with project data. Why not ;)
 
