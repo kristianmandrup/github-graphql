@@ -35,7 +35,8 @@
     "koa-route": "^2.4.0",
     "koa-router": "^5.1.2",
     "koa-static": "^1.4.9",
-    "octokat": "^0.4.11"
+    "octokat": "^0.4.11",
+    "octonode": "^0.7.1"
   },
   "devDependencies": {
     "co-supertest": "0.0.10",
