@@ -46,9 +46,16 @@ module.exports = class Github  {
   /**
    * Return organization
    *
+   * @example
+   * github.org('freddyucvTest').then((data) => console.log(data))
+   *
    * @param name Organization's name
   */
   org(name){
     return this.octo.orgs(name).fetch();
+  }
+
+  get ownerRepos(){
+    return this.octo.user.repos.fetch({affiliation: "owner"});
   }
 };
