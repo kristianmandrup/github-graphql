@@ -55,7 +55,24 @@ module.exports = class Github  {
     return this.octo.orgs(name).fetch();
   }
 
+  /**
+   * Return all repositories that are owned by the authenticated user.
+   *
+   * @example
+   * github.ownerRepos.then((data) => data.forEach(elem => console.log(elem.name)));
+  */
   get ownerRepos(){
     return this.octo.user.repos.fetch({affiliation: "owner"});
   }
+
+  /**
+   * Return all repositories that the user has been added to as a collaborator.
+   *
+   * @example
+   * github.collaboratorRepos.then((data) => data.forEach(elem => console.log(elem.name)));
+  */
+  get collaboratorRepos(){
+    return this.octo.user.repos.fetch({affiliation: "collaborator"});
+  }
+
 };
