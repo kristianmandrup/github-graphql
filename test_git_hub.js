@@ -8,4 +8,6 @@ github.authenticate({username: "freddyucv", password: "leones2009"});
 //github.userOrgs.then((data) => {console.log(data);});
 //github.org('freddyucvTest').then((data) => console.log(data));
 //github.ownerRepos.then((data) => data.forEach(elem => console.log(elem.name)));
-github.collaboratorRepos.then((data) => data.forEach(elem => console.log(elem.name)));
+//github.collaboratorRepos.then((data) => data.forEach(elem => console.log(elem.name)));
+//github.organizationMemberRepos.then((data) => data.forEach(elem => console.log(elem.name)));
+github.userRepos.then((data) => data.forEach(elem => console.log(elem.name)));
