@@ -1,20 +1,10 @@
 'use strict';
 
-module.exports = class Organization  {
+import GithubElement from './github_element.js' ;
+
+module.exports = class Organization  extends GithubElement {
 
   constructor(org){
-    this.info = {};
-
-    for (var key in org) {
-      if (org.hasOwnProperty(key)) {
-        let value = org[key];
-
-        if (typeof value != 'function'){
-          this.info[key] = value;
-        }
-      }
-    }
-
-
+    super(org);
   }
 }

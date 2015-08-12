@@ -23,7 +23,7 @@ module.exports = class GithubUser  {
   * Return all authenticate user's organizations
   *
   * @example
-  * github.user.orgs.then( (data) => console.log(data));
+  * github.user.orgs.then((data) => data.forEach( (item) => console.log(item.info)) )
   */
  get orgs(){
    return this.octo.user.orgs.fetch().then(
