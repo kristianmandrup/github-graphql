@@ -1,5 +1,7 @@
 'use strict';
 
+import Organization from './organization' ;
+
 module.exports = class GithubUser  {
 /**
   * Create a GithubUser
@@ -24,7 +26,12 @@ module.exports = class GithubUser  {
   * github.user.orgs.then( (data) => console.log(data));
   */
  get orgs(){
-   return this.octo.user.orgs.fetch();
+   return this.octo.user.orgs.fetch().then(
+     (data) => {
+                  data.forEach( (item, index, array) => array[index] = new Organization(item));
+                  return data;
+               }
+   );
  }
 
  /**
