@@ -4,7 +4,7 @@ module.exports = class GithubElement  {
 
   constructor(element, octo){
     this.info = {};
-
+    
     for (var key in element) {
       if (element.hasOwnProperty(key)) {
         let value = element[key];

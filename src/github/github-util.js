@@ -1,7 +1,8 @@
 'use strict';
 
 var Octokat = require('octokat');
-var GithubUser = require('./user');
+import GithubUser from './user';
+import Organization from './organization' ;
 
 // require('./server');
 
@@ -18,6 +19,10 @@ module.exports = class Github  {
     return 'hello';
   }
 
+  constructor(){
+    this.octo = new Octokat();
+  }
+
   /*
    * Github user's authentication
    *
@@ -28,14 +33,14 @@ module.exports = class Github  {
    * @param credentials.password
    */
    authenticate(credentials){
-    this.octo = new Octokat({
-      username: credentials.username,
-      password: credentials.password
-    });
+      let octo = new Octokat({
+        username: credentials.username,
+        password: credentials.password
+      });
 
-    return this.octo.users(credentials.username).fetch().then(
-            (data) => new GithubUser(data, this.octo)
-          );
+      return octo.users(credentials.username).fetch().then(
+              (data) => new GithubUser(data, octo)
+            );
   }
 
   /**
@@ -47,7 +52,9 @@ module.exports = class Github  {
    * @param name Organization's name
    */
   org(name){
-    return this.octo.orgs(name).fetch();
+    return this.octo.orgs(name).fetch().then(
+      (org) => new Organization(org, this.octo)
+    );
   }
 
 };
