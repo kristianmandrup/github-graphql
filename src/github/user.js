@@ -1,8 +1,9 @@
 'use strict';
 
 import Organization from './organization' ;
+import GithubElement from './github_element.js' ;
 
-module.exports = class GithubUser  {
+module.exports = class GithubUser  extends GithubElement  {
 /**
   * Create a GithubUser
   *
@@ -12,11 +13,8 @@ module.exports = class GithubUser  {
   * @param credentials.username
   * @param credentials.password
   */
- constructor(credentials, octo){
-   this.username = credentials.username;
-   this.password = credentials.password;
-
-   this.octo = octo;
+ constructor(info, octo){
+     super(info, octo)
  }
 
  /**
@@ -28,7 +26,7 @@ module.exports = class GithubUser  {
  get orgs(){
    return this.octo.user.orgs.fetch().then(
      (data) => {
-                  data.forEach( (item, index, array) => array[index] = new Organization(item));
+                  data.forEach( (item, index, array) => array[index] = new Organization(item, this.octo));
                   return data;
                }
    );

@@ -33,7 +33,9 @@ module.exports = class Github  {
       password: credentials.password
     });
 
-    this.authenticateUser = new GithubUser(credentials, this.octo);
+    return this.octo.users(credentials.username).fetch().then(
+            (data) => new GithubUser(data, this.octo)
+          );
   }
 
   get user() {

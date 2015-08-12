@@ -2,7 +2,7 @@
 
 module.exports = class GithubElement  {
 
-  constructor(element){
+  constructor(element, octo){
     this.info = {};
 
     for (var key in element) {
@@ -15,6 +15,6 @@ module.exports = class GithubElement  {
       }
     }
 
-
+    this.octo = octo;
   }
 }
