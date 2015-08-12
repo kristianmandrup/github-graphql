@@ -1,6 +1,6 @@
 'use strict';
 
-let Github = require( './src/github-graphql' );
+let Github = require( './src/github/github-util' );
 let github = new Github();
 
 github.authenticate({username: "freddyucv", password: "leones2009"});
