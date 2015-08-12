@@ -27,7 +27,7 @@ module.exports = class Github  {
    * @param credentials.username
    * @param credentials.password
    */
-  authenticate(credentials){
+   authenticate(credentials){
     this.octo = new Octokat({
       username: credentials.username,
       password: credentials.password
@@ -36,10 +36,6 @@ module.exports = class Github  {
     return this.octo.users(credentials.username).fetch().then(
             (data) => new GithubUser(data, this.octo)
           );
-  }
-
-  get user() {
-    return this.authenticateUser;
   }
 
   /**
