@@ -32,3 +32,12 @@ app.use(graffiti.koa({
 
 app.listen(3000);
 ```
+
+Installation
+============
+
+Install node packages required
+
+npm install
+
+to run git hub api test: babel-node test_git_hub
