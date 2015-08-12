@@ -20,7 +20,7 @@ module.exports = class Github  {
    * Github user's authentication
    *
    * @example
-   * github.authenticate({username: "freddyucv", password: "password"}); 
+   * github.authenticate({username: "freddyucv", password: "password"});
    *
    * @param credentials.username
    * @param credentials.password
@@ -40,5 +40,9 @@ module.exports = class Github  {
   */
   get userOrgs(){
     return this.octo.user.orgs.fetch();
+  }
+
+  get org(name){
+    return this.octo.orgs(name).fetch();
   }
 };
