@@ -42,7 +42,13 @@ module.exports = class Github  {
     return this.octo.user.orgs.fetch();
   }
 
-  get org(name){
+
+  /**
+   * Return organization
+   *
+   * @param name Organization's name
+  */
+  org(name){
     return this.octo.orgs(name).fetch();
   }
 };
