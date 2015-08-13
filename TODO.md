@@ -1,6 +1,32 @@
 Github API integration
 ======================
 
+Development plan
+----------------
+
+-	Create Koa server at src/server
+-	Create a route for graphQL query using either route or router
+
+https://github.com/alexmingoia/koa-router
+
+```js
+var app = require('koa')();
+var router = require('koa-router')();
+
+router.get('/', function *(next) {...});
+
+app
+  .use(router.routes())
+  .use(router.allowedMethods());
+```
+
+Move the tests to the `/test` folder and make them executable via `mocha` using chai.
+
+Use this example as guidance for setup: https://github.com/russmatney/koa-gulp-crud
+
+DATA
+----
+
 ### Organization data
 
 https://developer.github.com/v3/orgs/

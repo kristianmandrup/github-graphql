@@ -10,29 +10,12 @@ var route       = require('koa-route');
 var router      = require('koa-router');
 var mount       = require('koa-mount');
 
-// var requiredir = require("requiredir")
-
 var app = koa();
 app.use(logger());
 
 var credentials = require('../config/credentials');
-var braintree = require('braintree');
 
-var gateway = braintree.connect({
-  environment:  braintree.Environment.Sandbox,
-  merchantId:   credentials.merchantId,
-  publicKey:    credentials.publicKey,
-  privateKey:   credentials.privateKey
-});
-
-var paymentsApp = {
-  router: router,
-  gateway: gateway
-};
-
-// TODO: enable routes!!!
-// requiredir ???
-var routes = ('./routes')(paymentsApp);
+// add routes to github-graphql here!!!
 
 // Custom 404
 app.use(function*(next) {
