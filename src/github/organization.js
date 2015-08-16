@@ -2,9 +2,12 @@
 
 import GithubElement from './github_element.js' ;
 
-module.exports = class Organization  extends GithubElement {
-
-  constructor(org, octo){
+export default class Organization extends GithubElement {
+  /*
+  * @param {String} Organization name
+  * @param {Octokat} Octokat instance
+  */
+  constructor(org, octo) {
     super(org, octo);
   }
 }

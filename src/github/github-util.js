@@ -1,8 +1,8 @@
 'use strict';
 
-var Octokat = require('octokat');
+import Octokat from 'octokat';
 import GithubUser from './user';
-import Organization from './organization' ;
+import Organization from './organization';
 
 // require('./server');
 
@@ -13,13 +13,8 @@ import Organization from './organization' ;
  * let Github = require( './src/github-graphql' );
  * let github = new Github();
  */
-module.exports = class Github  {
-
-  greet() {
-    return 'hello';
-  }
-
-  constructor(){
+export default class Github {
+  constructor() {
     this.octo = new Octokat();
   }
 
@@ -29,18 +24,15 @@ module.exports = class Github  {
    * @example
    * github.authenticate({username: "freddyucv", password: "password"});
    *
-   * @param credentials.username
-   * @param credentials.password
-   */
-   authenticate(credentials){
-      let octo = new Octokat({
-        username: credentials.username,
-        password: credentials.password
-      });
+   * @param {Object} credentials username and password
+  */
+  authenticate(credentials) {
+    this.octo = new Octokat({
+      username: credentials.username,
+      password: credentials.password
+    });
 
-      return octo.users(credentials.username).fetch().then(
-              (data) => new GithubUser(data, octo)
-            );
+    return this.octo.users(credentials.username).fetch.then((data) => new GithubUser(data, octo));
   }
 
   /**
@@ -49,12 +41,10 @@ module.exports = class Github  {
    * @example
    * github.org('freddyucvTest').then((data) => console.log(data))
    *
-   * @param name Organization's name
+   * @param {String} name Organization's name
    */
-  org(name){
-    return this.octo.orgs(name).fetch().then(
-      (org) => new Organization(org, this.octo)
-    );
+  org(name) {
+    return this.octo.orgs(name)
+      .fetch().then((org) => new Organization(org, this.octo));
   }
-
 };
