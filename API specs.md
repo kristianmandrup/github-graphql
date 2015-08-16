@@ -7,276 +7,98 @@ GraphQL
 
 -	Repo Milestones
 
-### Schema
-
-START HERE: https://github.com/facebook/graphql
-
-Watch Videos from: http://facebook.github.io/react/blog/
-
--	https://www.youtube.com/watch?v=WQLzZf34FJ8
--	https://youtu.be/IrgHurBjQbg
--	https://youtu.be/gY48GW87Feo
--	https://www.youtube.com/watch?v=9sc8Pyc51uU
--	https://www.youtube.com/watch?v=FPygOvYLmJA
--	https://www.youtube.com/watch?v=S0s935RKKB4
-
-### Express server
-
-*Express GraphQL server*
-
-https://github.com/graphql/express-graphql
-
-### Relay
-
-Relay for GraphQL: https://github.com/graphql/graphql-relay-js
-
-Relay spec:
-
-DECLARATIVE Never again communicate with your data store using an imperative API. Simply declare your data requirements using GraphQL and let Relay figure out how and when to fetch your data.
-
-COLOCATION Queries live next to the views that rely on them, so you can easily reason about your app. Relay aggregates queries into efficient network requests to fetch only what you need.
-
-MUTATIONS Relay lets you mutate data on the client and server using GraphQL mutations, and offers automatic data consistency, optimistic updates, and error handling.
-
--	https://facebook.github.io/relay/
--	https://facebook.github.io/relay/docs/graphql-relay-specification.html
-
-First, build a GraphQL type schema which maps to your code base.
-
-### Sample Schema
-
-```js
-import {
-  graphql,
-  GraphQLSchema,
-  GraphQLObjectType,
-  GraphQLString
-} from 'graphql';
-
-var schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: 'RootQueryType',
-    fields: {
-      hello: {
-        type: GraphQLString,
-        resolve() {
-          return 'world';
-        }
-      }
-    }
-  })
-});
-```
-
-### User schema
-
-The most basic type in the system will be User, representing a github User. All github users have a name, so we define the User type to have a field called "name". This returns a String, and we know that it is not null (since all Users have a name), so we will define the "name" field to be a non-nullable String. Using a shorthand notation that we will use throughout the spec and documentation, we would describe the user type as:
-
-`type User { name: String }`
-
-```js
-enum Episode { NEWHOPE, EMPIRE, JEDI }
-
-interface Character {
-  id: String
-  name: String
-  friends: [Character]
-  appearsIn: [Episode]
-}
-
-type Human : Character {
-  id: String
-  name: String
-  friends: [Character]
-  appearsIn: [Episode]
-  homePlanet: String
-}
-
-type Droid : Character {
-  id: String
-  name: String
-  friends: [Character]
-  appearsIn: [Episode]
-  primaryFunction: String
-}
-```
-
-However, we most likely don't need to use an Interface for our model. But the `enum` will be useful!!!
-
-By default, `null` is a permitted value for any type in GraphQL, since fetching data to fulfill a GraphQL query often requires talking to different services that may or may not be available. However, if the type system can guarantee that a type is never null, then we can mark it as Non Null in the type system. We indicate that in our shorthand by adding an `!` after the type. We can update our type system to note that the id is never null.
-
-```js
-interface Character {
-  id: String!
-  name: String
-  friends: [Character]
-  appearsIn: [Episode]
-}
-```
-
-When we define a schema, we define an object type that is the basis for all queries. The name of this type is `Query` by convention, and it describes our public, top-level API. Our Query type for this example will look like this:
-
-```js
-type Query {
-  hero(episode: Episode): Character
-  human(id: String!): Human
-  droid(id: String!): Droid
-}
-```
-
-example query
-
-```js
-query HeroNameQuery {
-  hero {
-    name
-  }
-}
-```
-
-As defined above, Query has a hero field that returns a Character, so we'll query for that. Character then has a name field that returns a String, so we query for that, completing our query. The result of this query would then be:
-
-```js
-{
-  "hero": {
-    "name": "R2-D2"
-  }
-}
-```
-
-if we asked for R2-D2's ID and friends with this query:
-
-```js
-query HeroNameAndFriendsQuery {
-  hero {
-    id
-    name
-    friends {
-      id
-      name
-    }
-  }
-}
-```
-
-then we'll get back a response like this:
-
-```js
-{
-  "hero": {
-    "id": "2001",
-    "name": "R2-D2",
-    "friends": [
-      {
-        "id": "1000",
-        "name": "Luke Skywalker"
-      },
-      {
-        "id": "1002",
-        "name": "Han Solo"
-      },
-      {
-        "id": "1003",
-        "name": "Leia Organa"
-      }
-    ]
-  }
-}
-```
-
-One of the key aspects of GraphQL is its ability to nest queries. In the above query, we asked for R2-D2's friends, but we can ask for more information about each of those objects. So let's construct a query that asks for R2-D2's friends, gets their name and episode appearances, then asks for each of their friends.
-
-```js
-query NestedQuery {
-  hero {
-    name
-    friends {
-      name
-      appearsIn
-      friends {
-        name
-      }
-    }
-  }
-}
-```
-
-we can have defined the query to have a query parameter:
-
-```js
-query FetchSomeIDQuery($someId: String!) {
-  human(id: $someId) {
-    name
-  }
-}
-```
-
-Notice that the key in the response is the name of the field, by default. It is sometimes useful to change this key, for clarity or to avoid key collisions when fetching the same field with different arguments.
-
-We can do that with field aliases, as demonstrated in this query:
-
-```js
-query FetchLukeAliased {
-  luke: human(id: "1000") {
-    name
-  }
-}
-```
-
-We aliased the result of the human field to the key luke. Now the response is:
-
-```json
-{
-  "luke": {
-    "name": "Luke Skywalker"
-  }
-}
-```
-
-```js
-query FetchLukeAndLeiaAliased {
-  luke: human(id: "1000") {
-    name
-  }
-  leia: human(id: "1003") {
-    name
-  }
-}
-```
-
-we can extract out the common fields into a fragment, and include the fragment in the query, like this:
-
-```js
-query UseFragment {
-  luke: human(id: "1000") {
-    ...HumanFragment
-  }
-  leia: human(id: "1003") {
-    ...HumanFragment
-  }
-}
-
-fragment HumanFragment on Human {
-  name
-  homePlanet
-}
-```
-
-Looks like our best option is to take the Starwars sample implementation and gradually rework it for our schema needs.
-
-https://github.com/graphql/graphql-relay-js
-
--	https://facebook.github.io/relay/graphql/objectidentification.htm
--	https://facebook.github.io/relay/graphql/connections.htm
--	https://facebook.github.io/relay/graphql/mutations.htm
-
-...
-
-See [starWarsSchema](https://github.com/graphql/graphql-js/blob/master/src/__tests__/starWarsSchema.js)
-
 ### Github Schema
 
 See [First GraphQL server](https://medium.com/@clayallsopp/your-first-graphql-server-3c766ab4f0a2)
+
+### Github Types
+
+```js
+type Event {
+  id: String!
+  name: String
+  type: String  
+  description: String
+}
+```
+
+```js
+type Organization {
+  id: String!
+  description: String
+  teams: [Team]
+}
+```
+
+```js
+type Issue {
+  id: String!
+  type: String  
+  labels: [String]
+  description: String
+}
+```
+
+```js
+type Repo {
+  id: String!
+  labels: [String]
+  issues: [Issue],
+  pulls: [Pull],
+  branches: [Branch]
+  // ...
+}
+```
+
+```js
+type Team {
+  id: String!
+  name: String
+  members: [User] // or TeamMember?
+  // ...
+}
+```
+
+```js
+type User {
+  id: String!
+  repos: [Repo]
+  events: [Event]
+  teams: [Team]  
+}
+```
+
+### Queries
+
+```js
+type UserQuery {
+  // user by id (name)
+  user(id: String!): User
+}
+```
+
+```js
+type RepoQuery {
+  // repo by id (name)
+  repo(id: String!): Repo
+}
+```
+
+```js
+type ReposQuery {
+  // repos by owner and/or type
+  repos(owner: String, type: String): [Repos]
+}
+```
+
+```js
+type OrgsQuery {
+  // organizations of a user
+  orgs(user: String): [Repos]
+}
+```
+
+### Github Queries
 
 *Sample user query*
 
@@ -307,44 +129,253 @@ user(name: 'freedyucv') {
 
 See: https://github.com/RisingStack/graphql-server/blob/master/src/server/schema.js
 
-```sh
+```js
 var users.type = new GraphQLObjectType({
   name: 'User',
   description: 'User creator',
   fields: () => ({
     name: {
       type: GraphQLString,
-      description: 'The name of the user.',
-      args: {
-        name: {
-          name: 'name',
-          type: new GraphQLNonNull(GraphQLString)
-        }
-      },
-      resolve: (root, {name}) => {
-        return octo.users.user(name);
+      description: 'The full name of the user.',
+      resolve: (user) => {
+        return user.name;
       }
     },
     events: {
       type: new GraphQLList(events.type),
       description: 'The events of the user, or an empty list if they have none.',
       resolve: (user) => {
+        return user.events.fetch();
+      }
+    },
+    repos: {
+      type: new GraphQLList(repos.type),
+      description: 'The repos of the user, or an empty list if they have none.',
+      resolve: (user) => {
+        return user.repos.fetch();
+      }
+    },
+    repo: {
+      type: repos.type,
+      description: 'A repo of the user by name',
+      args: {
+        id: {
+          name: 'name',
+          type: new GraphQLNonNull(GraphQLString)
+        }
+      },
+      resolve: (user) => {
+        return user.repos.fetch();
       }
     }
   })
 });
 ```
 
-### Events Query Type
+### Repo Type
 
-```sh
+```js
+enums.repo.type = new GraphQLEnumType({
+  name: 'Type',
+  description: 'The type of Repository (public or private)',
+  values: {
+    PUBLIC: {
+      value: 1,
+      description: 'Public repos',
+    },
+    PRIVATE: {
+      value: 2,
+      description: 'Private repos',
+    }
+  }
+});
+```
+
+```js
+var repos.type = new GraphQLObjectType({
+  name: 'Repo',
+  description: 'Repository',
+  fields: () => ({
+    owner: {
+      type: GraphQLString,
+      description: 'The owner of the repo.',
+      resolve: (repo) => {
+        return repo.owner;
+      }
+    },
+    pulls: {
+      type: new GraphQLList(repos.pull),
+      description: 'Pull requests of the repo.',
+      resolve: (repo) => {
+        return repo.pulls.fetch();
+      }
+    },
+    branches: {
+      type: new GraphQLList(repos.branch),
+      description: 'Branches of the repo.',
+      resolve: (repo) => {
+        return repo.branches.fetch();
+      }
+    },
+    // tags
+    // teams
+    // languages
+    // labels
+    // pulls
+    // issues {
+    //   :number[]
+    // }
+  });
+});
+
+```
+
+```js
+var repo.query = new GraphQLObjectType({
+  name: 'RepoQuery',
+  description: 'A Query to get a single repo by id (name)',  
+  fields: {
+    repos: {  
+      type: repos.type,
+      args: {
+        id: {
+          description: 'the id (name) of the repo',
+          type: new GraphQLNonNull(GraphQLString)
+        }
+      },
+      // repos for the entity,
+      // ie. either an Organization or User
+      // this will return the Repo found as the
+      // first argument to each field of the repos.type
+      resolve: (entity, {id}) => {
+        return entity.repos(id).fetch();
+      }
+    }
+  }
+}
+```
+
+```js
+var repos.query = new GraphQLObjectType({
+  name: 'ReposQuery',
+  description: 'Get Repositories by type and/or owner',  
+  fields: {
+    repos: {  
+      type: new GraphQLList(repos.type),
+      args: {
+        type: {
+          description: `If omitted, returns all types of repos.
+                       If provided, returns only repos of that type.`,
+          type: enums.repo.status
+        },
+        owner: {
+          description: `If omitted, returns all types of repos.
+                       If provided, returns only repos of that type.`,
+          type: GraphQLString
+        }
+      },
+      // find repos by owner, type or both
+      resolve: (root, {type, owner}) => {
+        var typeArgs = type ? {type: type} : {};
+        var ownerArgs = type ? {owner: owner} : {};
+        var args = Object.assign(typeArgs, ownerArgs);
+        arg = args === {} ? args : undefined;
+        return root.repos(args).fetch();
+      }
+    }
+  }
+}
+```
+
+### Organization Query
+
+```js
+// orgs {
+//   :org {
+//     events
+//   }
+// }
+
+var repos.query = new GraphQLObjectType({
+  name: 'OrganizationsQuery',
+  description: 'Get Organization by id (name)',  
+  fields: {
+    orgs: {  
+      type: orgs.type,
+      args: {
+        id: {
+          description: 'the id (name) of the organization',
+          type: new GraphQLNonNull(GraphQLString)
+        }
+      },
+      // organization for the entity
+      // ie. either an Organization or User
+      // this will return the Organization found as the
+      // first argument to each field of the orgs.type
+      resolve: (entity, {id}) => {
+        return entity.orgs(id).fetch();
+      }
+    }
+  }
+}
+```
+
+```js
+var orgs.type = new GraphQLObjectType({
+  name: 'Organization',
+  description: 'Organization such as a company',
+  fields: () => ({
+    events: {
+      type: new GraphQLList(events.type),
+      description: 'The events of the organization.',
+      resolve: (org) => {
+        return org.events.fetch();
+      }
+    },
+    teams: {
+      type: new GraphQLList(teams.type),
+      description: 'The teams of the organization.',
+      resolve: (org) => {
+        return org.teams.fetch();
+      }
+    }
+    // ...
+  });
+});
+```
+
+### Events Type
+
+```js
 var events.type = new GraphQLObjectType({
   name: 'events',
   fields: {
+    ///...
+  }
+}
+```
+
+### Events Query
+
+```js
+var events.query = new GraphQLObjectType({
+  name: 'EventsQuery',
+  description: 'Get Events by type',
+  fields: {
     events: {
-      type: new GraphQLList(eventInterface),
-      description: 'The events of the user',
-      resolve: (human) => getFriends(human)
+      type: new GraphQLList(events.type),
+      args: {
+        id: {
+          description: 'The type of event',
+          type: GraphQLString
+        }
+      },
+      description: 'The events',
+      // the events for the entity, such as User, Organization or Team
+      resolve: (entity, {type}) => {
+        entity = entity || octo;
+        return entity.events(type).fetch();
+      }
     }
   }
 }
@@ -352,23 +383,24 @@ var events.type = new GraphQLObjectType({
 
 ### Users Query Type
 
-```sh
-var users.query = new GraphQLObjectType({
-  name: 'userQuery',
-  description: 'A mechanical creature in the Star Wars universe.',  
+```js
+var user.query = new GraphQLObjectType({
+  name: 'UserQuery',
+  description: 'Get User by id (name)',
   fields: {
     user: {  
-      type: userType,
+      type: user.type,
       args: {
         id: {
-          name: 'name',
+          description: 'the id (username) of the user',
           type: new GraphQLNonNull(GraphQLString)
         }
       },
-      resolve: (root, {id}) => {
-        return octo.users.user(id);
-      },
-      query: eventsQuery
+      // this will return the User found as the first argument to each field of the user.type!!!
+      resolve: (entity, {id}) => {
+        entity = entity || octo;
+        return entity.users.user(id);
+      }
     }
   }
 }
@@ -376,7 +408,7 @@ var users.query = new GraphQLObjectType({
 
 ### Users Mutation Type
 
-```sh
+```js
 users.mutation = new GraphQLObjectType({
   name: 'userMutation',
   fields: {
@@ -394,40 +426,10 @@ users.mutation = new GraphQLObjectType({
 
 ### Users schema
 
-```sh
+```js
 var users.schema = new GraphQLSchema({
   query: users.query,
   mutation: users.mutation
-}
-```
-
-### Orgs Schema
-
-```sh
-var schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: 'RootQueryType',
-    fields: {
-      orgs {
-        :org {
-          events
-        }
-      }
-    }
-  }
-}
-```
-
-### Schema
-
-```sh
-var schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: 'RootQueryType',
-    fields: {
-
-    }
-  }
 }
 ```
 
