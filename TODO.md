@@ -7,6 +7,12 @@ Development plan
 -	Create Koa server at src/server
 -	Create a route for graphQL query using either route or router
 
+### Koa server with GraphQL
+
+Use https://www.npmjs.com/package/graphql-koa
+
+### Routes
+
 https://github.com/alexmingoia/koa-router
 
 ```js
@@ -19,6 +25,8 @@ app
   .use(router.routes())
   .use(router.allowedMethods());
 ```
+
+### Tests
 
 Move the tests to the `/test` folder and make them executable via `mocha` using chai.
 
