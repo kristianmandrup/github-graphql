@@ -25,7 +25,8 @@ github.org('freddyucvTest').then((org) => console.log(org.info));
 github.authenticate({username: "freddyucv", password: "leones2009"})
  .then(
    (user) => {
-     user.ownerRepos.then((data) => data.forEach(elem => console.log(elem.name)));
+     user.repos().then((data) => data.forEach(elem => console.log(elem.name)));
+     //user.ownerRepos.then((data) => data.forEach(elem => console.log(elem.name)));
      //user.collaboratorRepos.then((data) => data.forEach(elem => console.log(elem.name)));
      //user.organizationMemberRepos.then((data) => data.forEach(elem => console.log(elem.name)));
      //user.repos.then((data) => data.forEach(elem => console.log(elem.name)));

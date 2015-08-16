@@ -27,12 +27,13 @@ export default class Github {
    * @param {Object} credentials username and password
   */
   authenticate(credentials) {
+
     this.octo = new Octokat({
       username: credentials.username,
       password: credentials.password
     });
 
-    return this.octo.users(credentials.username).fetch.then((data) => new GithubUser(data, octo));
+    return this.octo.users(credentials.username).fetch().then((data) => new GithubUser(data, this.octo));
   }
 
   /**
