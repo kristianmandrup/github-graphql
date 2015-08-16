@@ -32,8 +32,15 @@ Move the tests to the `/test` folder and make them executable via `mocha` using 
 
 Use this example as guidance for setup: https://github.com/russmatney/koa-gulp-crud
 
+Follow this testing guide http://elijahmanor.com/unit-test-like-a-secret-agent-with-sinon-js/
+
+-	Simulate Ajax Request/Response https://github.com/jakerella/jquery-mockjax
+-	Mock JSON data http://experiments.mennovanslooten.nl/2010/mockjson/
+
 DATA
 ----
+
+See *API Specs.md*
 
 ### Organization data
 
