@@ -12,6 +12,12 @@ GraphQL server for Github API
 -	https://github.com/RisingStack/graffiti
 -	https://github.com/RisingStack/graffiti-example
 
+### Testing
+
+Run: `gulp test`
+
+### Octokat
+
 Use [Octokat.js](https://github.com/philschatz/octokat.js) API wrapper for a nice DSL.
 
 This project will integrate with [Jenkins-graphQL]() using [node-jenkins-api](https://github.com/jansepar/node-jenkins-api)
