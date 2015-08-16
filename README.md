@@ -8,9 +8,16 @@ GraphQL server for Github API
 -	https://github.com/graphql/graphql-js
 -	https://github.com/rmosolgo/graphql-ruby
 -	https://blog.risingstack.com/graphql-overview-getting-started-with-graphql-and-nodejs/
+-	https://medium.com/@clayallsopp/your-first-graphql-server-3c766ab4f0a2
 -	https://github.com/RisingStack/graphql-server
 -	https://github.com/RisingStack/graffiti
 -	https://github.com/RisingStack/graffiti-example
+
+### Testing
+
+Run: `gulp test`
+
+### Octokat
 
 Use [Octokat.js](https://github.com/philschatz/octokat.js) API wrapper for a nice DSL.
 

@@ -1,20 +1,28 @@
 'use strict';
 
-module.exports = class GithubElement  {
-
-  constructor(element, octo){
+export default class GithubElement {
+  /*
+  * @param {Object} abstract element
+  * @param {Octokat} Octokat instance
+  */
+  constructor(element, octo) {
     this.info = {};
-    
     for (var key in element) {
-      if (element.hasOwnProperty(key)) {
-        let value = element[key];
+      this.setInfo(element, key);
+    }
+    this.octo = octo;
+  }
 
-        if (typeof value != 'function'){
-          this.info[key] = value;
-        }
+  /*
+  * @param {Object} abstract element
+  * @param {String} key in element
+  */
+  setInfo(element, key) {
+    if (element.hasOwnProperty(key)) {
+      let value = element[key];
+      if (typeof value != 'function') {
+        this.info[key] = value;
       }
     }
-
-    this.octo = octo;
   }
 }

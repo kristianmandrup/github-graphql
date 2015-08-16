@@ -128,7 +128,6 @@ https://developer.github.com/v3/activity/events/
 -	List public events
 -	List repository events
 -	List issue events for a repository
--	List public events for a network of repositories
 -	List public events for an organization
 -	List events that a user has received
 -	List public events that a user has received

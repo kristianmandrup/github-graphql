@@ -1,4 +1,4 @@
---require should
 --reporter list
 --growl
 --ui bdd
+--recursive
