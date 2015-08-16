@@ -11,6 +11,97 @@ Development plan
 
 Use https://www.npmjs.com/package/graphql-koa
 
+at https://github.com/buildwithlow/graphql-koa
+
+Usage:
+
+```js
+var graphqlHTTP = require('graphql-koa');
+var mount = require('koa-mount');
+var app = koa();
+app.use(mount('/graphql', graphqlHTTP({ schema: MyGraphQLSchema })) )
+```
+
+Queries:
+
+```
+/graphql?query=query+getUser($id:ID){user(id:$id){name}}&variables={"id":"4"}
+```
+
+Usage Testing:
+
+-	https://github.com/buildwithlow/graphql-koa/blob/master/src/__tests__/usage-test.js
+-	https://github.com/buildwithlow/graphql-koa/blob/master/src/__tests__/http-test.js
+
+```js
+
+import { expect } from 'chai';
+import { describe, it } from 'mocha';
+import { stringify } from 'querystring';
+import zlib from 'zlib';
+import multer from 'multer';
+import request from 'supertest-as-promised';
+
+import koa from 'koa'; // koa server :)
+
+import {
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLNonNull,
+  GraphQLString
+} from 'graphql';
+import graphqlHTTP from '../';
+
+var TestSchema = new GraphQLSchema({
+  query: new GraphQLObjectType({
+    name: 'Root',
+    fields: {
+      test: {
+        type: GraphQLString,
+        args: {
+          who: {
+            type: GraphQLString
+          }
+        },
+        resolve: (root, { who }) => 'Hello ' + (who || 'World')
+      },
+      thrower: {
+        type: new GraphQLNonNull(GraphQLString),
+        resolve: () => { throw new Error('Throws!'); }
+      }
+    }
+  })
+});
+
+function urlString(urlParams?: ?Object) {
+  var string = '/graphql';
+  if (urlParams) {
+    string += ('?' + stringify(urlParams));
+  }
+  return string;
+}
+
+describe('Koa graphqlHTTP', () => {
+  it('allows GET with variable values', async () => {
+    var app = koa();
+
+    app.use(urlString(), graphqlHTTP({
+     schema: TestSchema
+    }));
+
+    var response = await request(app)
+     .get(urlString({
+       query: 'query helloWho($who: String){ test(who: $who) }',
+       variables: JSON.stringify({ who: 'Dolly' })
+     }));
+
+    expect(response.text).to.equal(
+     '{"data":{"test":"Hello Dolly"}}'
+    );
+  });  
+})
+```
+
 ### Routes
 
 https://github.com/alexmingoia/koa-router
