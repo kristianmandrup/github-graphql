@@ -31,9 +31,9 @@ DATA
 
 https://developer.github.com/v3/orgs/
 
--	List organizations for the authenticated user. GET /user/orgs
+(done) -	List organizations for the authenticated user. GET /user/orgs
 
--	Get an organization GET /orgs/:org
+(done) -	Get an organization GET /orgs/:org
 
 ```json
 {
@@ -59,15 +59,15 @@ https://developer.github.com/v3/orgs/
 
 ### Repos
 
--	List your repositories GET /user/repos
+(done) -	List your repositories GET /user/repos
 
 `affiliation` string Comma-separated list of values. Can include:
 
--	owner: Repositories that are owned by the authenticated user.
--	collaborator: Repositories that the user has been added to as a collaborator.
--	organization_member: Repositories that the user has access to through being a member of an organization.
+(done) -	owner: Repositories that are owned by the authenticated user.
+(done) -	collaborator: Repositories that the user has been added to as a collaborator.
+(done) -	organization_member: Repositories that the user has access to through being a member of an organization.
 
-Default: `owner,collaborator,organization_member`
+(done) Default: `owner,collaborator,organization_member`
 
 -	List organization repositories GET /orgs/:org/repos
 
