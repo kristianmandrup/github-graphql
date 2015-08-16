@@ -39,6 +39,6 @@ export default class GithubUser extends GithubElement {
   */
   repos(affiliation) {
     var args = affiliation ? {affiliation: affiliation} : undefined;
-    return this.octo.user.repos.fetch({affiliation: 'owner'});
+    return this.octo.user.repos.fetch(args);
   }
 }
