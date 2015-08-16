@@ -32,44 +32,13 @@ export default class GithubUser extends GithubElement {
   }
 
   /**
-  * Return all repositories that are owned by the authenticated user.
+  * Return all repositories or by affiliation
   *
   * @example
   * github.user.ownerRepos.then((data) => data.forEach(elem => console.log(elem.name)));
   */
-  get ownerRepos() {
-    return this.octo.user.repos.fetch({affiliation: 'owner'});
-  }
-
-  /**
-  * Return all repositories that the user has been added to as a collaborator.
-  *
-  * @example
-  * github.user.collaboratorRepos.then((data) => data.forEach(elem => console.log(elem.name)));
-  */
-  get collaboratorRepos() {
-    return this.octo.user.repos.fetch({affiliation: 'collaborator'});
-  }
-
-  /**
-  * Return all Repositories that the user has access to through being a member
-  * of an organization. This includes every repository on every team that the
-  * user is on.
-  *
-  * @example
-  * github.user.organizationMemberRepos.then((data) => data.forEach(elem => console.log(elem.name)));
-  */
-  get organizationMemberRepos() {
-    return this.octo.user.repos.fetch({affiliation: 'organization_member'});
-  }
-
- /**
-  * Return a list repositories that are accessible to the authenticated user
-  *
-  * @example
-  * github.user.repos.then((data) => data.forEach(elem => console.log(elem.name)));
-  */
-  get repos() {
-    return this.octo.user.repos.fetch();
+  get repos(affiliation) {
+    var args = affiliation ? {affiliation: affiliation} : undefined;
+    return this.octo.user.repos.fetch(args);
   }
 }

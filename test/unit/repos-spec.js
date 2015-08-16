@@ -24,6 +24,17 @@ describe('Octokat repos', () => {
       });
     });
 
+    describe('#contents', () => {
+      var readme;
+      before(() => {
+        readme = repo.contents('README.md');
+      });
+
+      it('contains title: Hello World', () => {
+        expect(readme.read()).to.eql('Hello World');
+      });
+    });
+
     describe('#issues', () => {
       it('fetches issues', () => {
         repos.issues().then(function(data) {

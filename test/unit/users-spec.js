@@ -36,5 +36,24 @@ describe('Octokat users', () => {
         });
       });
     });
+
+    describe('#repos', () => {
+      var repos;
+      before(() => {
+        repos = octo.repos;
+      });
+
+      describe('collaborator', () => {
+        before(() => {
+          repos = octo.repos('collaborator');
+        });
+      });
+
+      describe('#organizationMember', () => {
+        before(() => {
+          repos = octo.repos('organizationMember');
+        });
+      });
+    });
   });
 });
