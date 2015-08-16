@@ -1,6 +1,6 @@
 var Octokat = require('octokat');
 
-describe('Octokat users', () => {
+describe('Octokat', () => {
   var octo;
   before(() => {
     octo = new Octokat({
@@ -9,11 +9,18 @@ describe('Octokat users', () => {
     });
   });
 
-  describe('#fetch', () => {
-    it('fetches users', () => {
-      octo.user.orgs.fetch().then(function(data) {
-        console.log('data ' + JSON.stringify(data));
-        expect(data).to.not.eql({});
+  describe('#orgs', () => {
+    var orgs;
+    before(() => {
+      orgs = octo.orgs('freddyucvTest');
+    });
+
+    describe('#fetch', () => {
+      it('fetches orgs', () => {
+        octo.orgs('freddyucvTest').fetch().then(function(orgs) {
+          console.log('orgs ' + JSON.stringify(orgs));
+          expect(orgs).to.not.eql({});
+        });
       });
     });
   });

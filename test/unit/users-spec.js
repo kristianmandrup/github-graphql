@@ -9,11 +9,31 @@ describe('Octokat users', () => {
     });
   });
 
-  describe('#fetch', () => {
-    it('fetches users', () => {
-      octo.users.fetch().then(function(data) {
-        console.log('data ' + JSON.stringify(data));
-        expect(data).to.not.eql({});
+  describe('#users', () => {
+    describe('#fetch', () => {
+      it('fetches users', () => {
+        octo.users.fetch().then(function(data) {
+          console.log('data ' + JSON.stringify(data));
+          expect(data).to.not.eql({});
+        });
+      });
+    });
+  });
+
+  describe('#user', () => {
+    var user;
+    before(() => {
+      user = octo.user;
+    });
+
+    describe('#orgs', () => {
+      describe('#fetch', () => {
+        it('fetches orgs', () => {
+          octo.user.orgs.fetch().then(function(orgs) {
+            console.log('orgs ' + JSON.stringify(orgs));
+            expect(orgs).to.not.eql({});
+          });
+        });
       });
     });
   });
