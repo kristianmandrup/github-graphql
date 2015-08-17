@@ -9,6 +9,7 @@ var serve       = require('koa-static');
 var route       = require('koa-route');
 var router      = require('koa-router');
 var mount       = require('koa-mount');
+var graphqlServer = require('./graphql-server');
 
 var app = koa();
 app.use(logger());
@@ -16,6 +17,7 @@ app.use(logger());
 var credentials = require('../config/credentials');
 
 // add routes to github-graphql here!!!
+app.use(graphqlServer);
 
 // Custom 404
 app.use(function*(next) {

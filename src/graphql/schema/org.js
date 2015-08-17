@@ -5,10 +5,10 @@ import {
   GraphQLList,
   GraphQLNonNull,
   GraphQLSchema,
-  GraphQLString,
-} from 'graphql.type';
+  GraphQLString
+} from 'graphql';
 
-import Github from '../github/github-util'
+import Github from '../../github/github-util'
 let github = new Github();
 
 var orgType = new GraphQLObjectType({
@@ -19,27 +19,27 @@ var orgType = new GraphQLObjectType({
     description: 'The github server id of the org.',
   },
   login: {
-    type: new GraphQLString(GraphQLString),
+    type: GraphQLString,
     description: '',
   },
   url: {
-    type: new GraphQLString(GraphQLString),
+    type: GraphQLString,
     description: '',
   },
   reposUrl: {
-    type: new GraphQLString(GraphQLString),
+    type: GraphQLString,
     description: '',
   },
   eventsUrl: {
-    type: new GraphQLString(GraphQLString),
+    type: GraphQLString,
     description: '',
   },
   avatarUrl: {
-    type: new GraphQLString(GraphQLString),
+    type: GraphQLString,
     description: '',
   },
   description: {
-    type: new GraphQLString(GraphQLString),
+    type: GraphQLString,
     description: '',
   }
 });
@@ -58,4 +58,5 @@ export var orgType = new GraphQLObjectType({
       },
       resolve: (root, { orgName }) => github.org(orgName),
     }
+  })
 });
