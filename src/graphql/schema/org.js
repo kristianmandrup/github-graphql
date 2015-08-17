@@ -45,7 +45,7 @@ var orgType = new GraphQLObjectType({
 });
 
 
-var queryType = new GraphQLObjectType({
+export var orgType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
     org: {
@@ -58,5 +58,4 @@ var queryType = new GraphQLObjectType({
       },
       resolve: (root, { orgName }) => github.org(orgName),
     }
-
 });
