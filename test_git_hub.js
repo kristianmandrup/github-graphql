@@ -9,8 +9,12 @@ let github = new Github();
 */
 /*github.authenticate({username: "freddyucv", password: "leones2009"})
   .then(
-    (user) => user.orgs.then((data) => data.forEach( (item) => console.log(item.info)) )
+    (user) => console.log(user.info)
   );*/
+github.authenticate({username: "freddyucv", password: "leones2009"})
+  .then(
+    (user) => user.orgs.then((data) => data.forEach( (item) => console.log(item.info)) )
+  );
 
 /*
  * Get organization info
@@ -22,7 +26,7 @@ github.org('freddyucvTest').then((org) => console.log(org.info));
 /**
  * Get repos
  */
-github.authenticate({username: "freddyucv", password: "leones2009"})
+/*github.authenticate({username: "freddyucv", password: "leones2009"})
  .then(
    (user) => {
      user.repos().then((data) => data.forEach(elem => console.log(elem.name)));
@@ -31,4 +35,4 @@ github.authenticate({username: "freddyucv", password: "leones2009"})
      //user.organizationMemberRepos.then((data) => data.forEach(elem => console.log(elem.name)));
      //user.repos.then((data) => data.forEach(elem => console.log(elem.name)));
    }
- );
+ );*/

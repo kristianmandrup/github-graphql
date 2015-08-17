@@ -13,8 +13,8 @@ export default class GithubUser extends GithubElement {
   * @param {Object} credentials username and password
   * @param {Octokat} octokat instance
   */
-  constructor(credentials, octokat) {
-    super(credentials, octokat);
+  constructor(data, octokat) {
+    super(data, octokat);
   }
 
  /**
