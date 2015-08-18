@@ -26,30 +26,6 @@ var userType = new GraphQLObjectType({
     type: GraphQLString,
     description: 'User avatar URL',
   },
-  htmlUrl: {
-    type: GraphQLString,
-    description: 'User html',
-  },
-  /*followersUrl: {
-    type: GraphQLString,
-    description: '',
-  },
-  subscriptionsUrl: {
-    type: GraphQLString,
-    description: '',
-  },
-  organizationsUrl: {
-    type: GraphQLString,
-    description: '',
-  },
-  reposUrl: {
-    type: GraphQLString,
-    description: '',
-  },
-  receivedEventsUrl: {
-    type: GraphQLString,
-    description: '',
-  },*/
   type: {
     type: GraphQLString,
     description: '',
@@ -74,10 +50,6 @@ var userType = new GraphQLObjectType({
     type: GraphQLString,
     description: '',
   },
-  hireable: {
-    type: GraphQLString,
-    description: '',
-  },
   bio: {
     type: GraphQLString,
     description: '',
@@ -86,26 +58,11 @@ var userType = new GraphQLObjectType({
     type: GraphQLInt,
     description: '',
   },
-  publicGists: {
-    type: GraphQLInt,
-    description: '',
-  },
+  // ie. member since
   createdAt: {
     type: GraphQLString,
     description: '',
-  },
-  updatedAt: {
-    type: GraphQLString,
-    description: '',
-  },
-  privateGists: {
-    type: GraphQLInt,
-    description: '',
-  },
-  privateGists: {
-    type: GraphQLInt,
-    description: '',
-  },
+  }
   totalPrivateRepos: {
     type: GraphQLInt,
     description: '',
@@ -113,24 +70,7 @@ var userType = new GraphQLObjectType({
   ownedPrivateRepos: {
     type: GraphQLInt,
     description: '',
-  },
-  diskUsage: {
-    type: GraphQLInt,
-    description: '',
-  },
-  collaborators: {
-    type: GraphQLInt,
-    description: '',
-  },
-  plan: new GraphQLObjectType({
-    name: 'Plan',
-    fields: {
-      name: {type: GraphQLString},
-      space: {type: GraphQLInt},
-      collaborators: {type: GraphQLInt},
-      privateRepos: {type: GraphQLInt}
-    }
-  })
+  }
 });
 
 /*

@@ -22,18 +22,6 @@ var orgType = new GraphQLObjectType({
     type: GraphQLString,
     description: '',
   },
-  url: {
-    type: GraphQLString,
-    description: '',
-  },
-  reposUrl: {
-    type: GraphQLString,
-    description: '',
-  },
-  eventsUrl: {
-    type: GraphQLString,
-    description: '',
-  },
   avatarUrl: {
     type: GraphQLString,
     description: '',
