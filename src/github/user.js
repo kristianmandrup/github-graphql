@@ -10,7 +10,7 @@ export default class GithubUser extends GithubElement {
   * @example
   * new GithubUser({username: 'freddyucv', password: 'password'});
   *
-  * @param {Object} credentials username and password
+  * @param {Object} data (username and password)
   * @param {Octokat} octokat instance
   */
   constructor(data, octokat) {

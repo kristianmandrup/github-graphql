@@ -8,7 +8,7 @@ import {
   GraphQLString
 } from 'graphql';
 
-import Github from '../../github/github-util'
+import Github from '../../github/github-util';
 let github = new Github();
 
 var orgType = new GraphQLObjectType({
@@ -56,7 +56,7 @@ export var orgType = new GraphQLObjectType({
           type: GraphQLString
         }
       },
-      resolve: (root, { orgName }) => github.org(orgName),
+      resolve: (root, {orgName}) => github.org(orgName),
     }
   })
 });

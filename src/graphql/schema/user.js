@@ -8,7 +8,7 @@ import {
   GraphQLString,
 } from 'graphql.type';
 
-import Github from '../github/github-util'
+import Github from '../github/github-util';
 let github = new Github();
 
 var userType = new GraphQLObjectType({
@@ -123,13 +123,13 @@ var userType = new GraphQLObjectType({
     description: '',
   },
   plan: new GraphQLObjectType({
-        name: 'Plan',
-        fields: {
-          name: { type: GraphQLString },
-          space: { type: GraphQLInt },
-          collaborators: { type: GraphQLInt },
-          privateRepos: { type: GraphQLInt }
-        }
+    name: 'Plan',
+    fields: {
+      name: {type: GraphQLString},
+      space: {type: GraphQLInt},
+      collaborators: {type: GraphQLInt},
+      privateRepos: {type: GraphQLInt}
+    }
   })
 });
 
@@ -145,7 +145,7 @@ var queryType = new GraphQLObjectType({
           type: GraphQLString
         }
       },
-      resolve: (root, { userName }) => github.authenticate(userName),
+      resolve: (root, {userName}) => github.authenticate(userName),
     }
 
 });
