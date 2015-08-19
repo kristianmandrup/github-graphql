@@ -21,7 +21,7 @@ type Organization {
 
 type OrgsQuery {
   // organizations of a user
-  orgs(user: String): [Repos]
+  orgs(user: String): [Organization]
 }
 */
 
@@ -40,21 +40,22 @@ var orgType = new GraphQLObjectType({
   })
 });
 
-
 var orgQuery = new GraphQLObjectType({
-  name: 'orgQuery',
-  fields: () => ({
-    orgs: {
-      type: new GraphQLList(orgType),
-      args: {
-        userName: {
-          description: '',
-          type: GraphQLString
-        }
-      },
-      resolve: (root, {userName}) => github.userOrgs(userName)
-    }
-  })
+    name: 'Query',
+    description: '',
+    fields: () => ({
+      orgs: {
+        type: new GraphQLList(orgType),
+        args: {
+          userName: {
+            description: '',
+            type: GraphQLString
+          }
+        },
+        resolve: (root, {userName}) => github.userOrgs(userName)
+      }
+    })
 });
 
-export default orgQuery;
+
+export default orgType;

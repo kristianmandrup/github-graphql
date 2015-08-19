@@ -13,14 +13,14 @@ describe('Server: ', () => {
   });
 
   describe('Organization ', () => {
-    it('Getting organization description by username ', () => {
+    it('Getting organization description by username ', (done) => {
       let query = `query orgs_query {
                     orgs(userName: "freddyucv") {
                       description
                     }
                   }`;
 
-      let expect = {
+      let resultExpect = {
         "orgs":[
             {"description":"freddyucvTest"}
         ]
@@ -32,10 +32,10 @@ describe('Server: ', () => {
         .end((err, res) => {
           if (err) throw err;
 
-
-          expect(res.body.data).to.equal(expect);
-
+          expect(res.body.data).to.deep.equal(resultExpect);
+          done();
         });
+
     });
   });
 });
