@@ -1,8 +1,7 @@
 'use strict';
 
 import Octokat from 'octokat';
-import GithubUser from './user';
-import Organization from './organization';
+import util from './github_elements_util';
 
 // require('./server');
 
@@ -44,10 +43,10 @@ export default class Github {
    *
    * @param {String} name Organization's name
    */
-  org(name) {
+  /*org(name) {
     return this.octo.orgs(name)
       .fetch().then((org) => new Organization(org, this.octo));
-  }
+  }*/
 
   userOrgs(userName) {
 
@@ -56,34 +55,7 @@ export default class Github {
       password: "leones2009"
     });
 
-
     return this.octo.user.orgs.fetch()
-      .then((orgs) => {
-          let config = {
-            id: "id",
-            login: "description"
-          }
-
-          let orgsResult = [];
-
-          orgs.forEach(
-            (item) => {
-              let result = {};
-
-              for (let key in item) {
-
-                if(config[key]){
-                  let value = item[key];
-                  let newKey = config[key];
-                  result[newKey] = value;
-                }
-              }
-
-              orgsResult.push(result);
-            }
-          );
-
-          return orgsResult;
-      });
+      .then((orgs) => util('organization', orgs));
   }
 };
