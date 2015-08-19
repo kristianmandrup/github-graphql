@@ -2,6 +2,7 @@ import request from 'supertest-as-promised';
 import server from '../../../src/server';
 import { stringify } from 'querystring';
 import agent from 'supertest-koa-agent';
+import {expect} from 'chai';
 
 describe('Server: ', () => {
 
@@ -12,22 +13,28 @@ describe('Server: ', () => {
   });
 
   describe('Organization ', () => {
-    describe('Getting organization description by username ', () => {
+    it('Getting organization description by username ', () => {
       let query = `query orgs_query {
                     orgs(userName: "freddyucv") {
                       description
                     }
                   }`;
 
-      var url = '/graphql?' + stringify({query: query})
+      let expect = {
+        "orgs":[
+            {"description":"freddyucvTest"}
+        ]
+      };
 
-      console.log(url);
+      var url = '/graphql?' + stringify({query: query})
 
       app.get(url).expect(200)
         .end((err, res) => {
           if (err) throw err;
 
-          console.log(JSON.stringify(res.body));
+
+          expect(res.body.data).to.equal(expect);
+
         });
     });
   });

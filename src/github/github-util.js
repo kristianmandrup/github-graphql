@@ -50,7 +50,7 @@ export default class Github {
   }
 
   userOrgs(userName) {
-console.log("userName " + userName);
+
     this.octo = new Octokat({
       username: userName,
       password: "leones2009"
