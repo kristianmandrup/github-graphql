@@ -8,9 +8,8 @@ import {
   GraphQLString
 } from 'graphql';
 
-import Github from '../../github/github-util';
+import Github from '../../../github/github-util';
 let github = new Github();
-
 
 /*
 type Organization {
@@ -40,22 +39,17 @@ var orgType = new GraphQLObjectType({
   })
 });
 
-var orgQuery = new GraphQLObjectType({
-    name: 'Query',
-    description: '',
-    fields: () => ({
-      orgs: {
-        type: new GraphQLList(orgType),
-        args: {
-          userName: {
-            description: '',
-            type: GraphQLString
-          }
-        },
-        resolve: (root, {userName}) => github.userOrgs(userName)
+var orgQuery ={
+  orgs: {
+    type: new GraphQLList(orgType),
+    args: {
+      userName: {
+        description: '',
+        type: GraphQLString
       }
-    })
-});
+    },
+    resolve: (root, {userName}) => github.userOrgs(userName)
+  }
+};
 
-
-export default orgType;
+export default orgQuery;

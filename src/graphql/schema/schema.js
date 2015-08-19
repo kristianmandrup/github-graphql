@@ -1,29 +1,28 @@
 import {
   GraphQLObjectType,
-  GraphQLSchema
+  GraphQLSchema,
 } from 'graphql';
 
-import orgType from './org';
+import orgQuery from './schemas/org';
 
-var orgQuery = new GraphQLObjectType({
-    name: 'Query',
-    description: '',
-    fields: () => ({
-      orgs: {
-        type: new GraphQLList(orgType),
-        args: {
-          userName: {
-            description: '',
-            type: GraphQLString
-          }
-        },
-        resolve: (root, {userName}) => github.userOrgs(userName)
-      }
-    })
-});
+let queries = [orgQuery];
+
+let fields = {};
+
+queries.forEach((item) => {
+    for (var key in item) {
+      let value = item[key];
+      fields[key] = value;
+    }
+  }
+);
 
 var graphQLGitHubSchema = new GraphQLSchema({
-  query: orgQuery
+  query:  new GraphQLObjectType({
+      name: 'Query',
+      description: '',
+      fields: () => fields
+  })
 });
 
 export default graphQLGitHubSchema;
