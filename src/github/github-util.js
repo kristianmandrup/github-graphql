@@ -48,4 +48,42 @@ export default class Github {
     return this.octo.orgs(name)
       .fetch().then((org) => new Organization(org, this.octo));
   }
+
+  userOrgs(userName) {
+console.log("userName " + userName);
+    this.octo = new Octokat({
+      username: userName,
+      password: "leones2009"
+    });
+
+
+    return this.octo.user.orgs.fetch()
+      .then((orgs) => {
+          let config = {
+            id: "id",
+            login: "description"
+          }
+
+          let orgsResult = [];
+
+          orgs.forEach(
+            (item) => {
+              let result = {};
+
+              for (let key in item) {
+
+                if(config[key]){
+                  let value = item[key];
+                  let newKey = config[key];
+                  result[newKey] = value;
+                }
+              }
+
+              orgsResult.push(result);
+            }
+          );
+
+          return orgsResult;
+      });
+  }
 };

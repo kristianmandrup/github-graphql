@@ -2,8 +2,10 @@ import {
   GraphQLSchema
 } from 'graphql';
 
-import orgType from './org';
+import queryType from './org';
 
-export var graphQLGitHubSchema = new GraphQLSchema({
-  query: orgType
+var graphQLGitHubSchema = new GraphQLSchema({
+  query: queryType
 });
+
+export default graphQLGitHubSchema;

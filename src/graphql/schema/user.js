@@ -8,6 +8,16 @@ import {
   GraphQLString,
 } from 'graphql.type';
 
+/*
+  type User {
+    id: String!
+    login: String
+    repos: [Repo]
+    events: [Event]
+    teams: [Team]
+  }
+*/
+
 import Github from '../github/github-util';
 let github = new Github();
 
@@ -21,56 +31,12 @@ var userType = new GraphQLObjectType({
   login: {
     type: GraphQLString,
     description: 'The login of the user.',
-  },
-  avatarUrl: {
-    type: GraphQLString,
-    description: 'User avatar URL',
-  },
-  type: {
-    type: GraphQLString,
-    description: '',
-  },
-  name: {
-    type: GraphQLString,
-    description: '',
-  },
-  company: {
-    type: GraphQLString,
-    description: '',
-  },
-  blog: {
-    type: GraphQLString,
-    description: '',
-  },
-  location: {
-    type: GraphQLString,
-    description: '',
-  },
-  email: {
-    type: GraphQLString,
-    description: '',
-  },
-  bio: {
-    type: GraphQLString,
-    description: '',
-  },
-  publicRepos: {
-    type: GraphQLInt,
-    description: '',
-  },
-  // ie. member since
-  createdAt: {
-    type: GraphQLString,
-    description: '',
-  }
-  totalPrivateRepos: {
-    type: GraphQLInt,
-    description: '',
-  },
-  ownedPrivateRepos: {
-    type: GraphQLInt,
-    description: '',
-  }
+  }/*,
+  friends: {
+    type: new GraphQLList(characterInterface),
+    description: 'The friends of the character, or an empty list if they ' +
+                 'have none.',
+  },*/
 });
 
 /*

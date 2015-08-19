@@ -7,14 +7,16 @@ let github = new Github();
 /*
  * user authenticate
 */
-/*github.authenticate({username: "freddyucv", password: "leones2009"})
-  .then(
-    (user) => console.log(user.info)
-  );*/
+/*
 github.authenticate({username: "freddyucv", password: "leones2009"})
   .then(
+    (user) => console.log(user.info)
+);
+*/
+/*github.authenticate({username: "freddyucv", password: "leones2009"})
+  .then(
     (user) => user.orgs.then((data) => data.forEach( (item) => console.log(item.info)) )
-  );
+  );*/
 
 /*
  * Get organization info
@@ -36,3 +38,6 @@ github.org('freddyucvTest').then((org) => console.log(org.info));
      //user.repos.then((data) => data.forEach(elem => console.log(elem.name)));
    }
  );*/
+
+
+ github.userOrg();

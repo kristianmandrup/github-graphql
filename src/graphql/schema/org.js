@@ -11,40 +11,50 @@ import {
 import Github from '../../github/github-util';
 let github = new Github();
 
+
+/*
+type Organization {
+  id: String!
+  description: String
+  teams: [Team]
+}
+
+type OrgsQuery {
+  // organizations of a user
+  orgs(user: String): [Repos]
+}
+*/
+
 var orgType = new GraphQLObjectType({
   name: 'organization',
   description: 'Github organization',
-  id: {
-    type: new GraphQLNonNull(GraphQLString),
-    description: 'The github server id of the org.',
-  },
-  login: {
-    type: GraphQLString,
-    description: '',
-  },
-  avatarUrl: {
-    type: GraphQLString,
-    description: '',
-  },
-  description: {
-    type: GraphQLString,
-    description: '',
-  }
+  fields: () => ({
+    id: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'The github server id of the org.',
+    },
+    description: {
+      type: GraphQLString,
+      description: '',
+    }
+  })
 });
 
 
-export var orgType = new GraphQLObjectType({
-  name: 'Query',
+var orgQuery = new GraphQLObjectType({
+  name: 'orgQuery',
   fields: () => ({
-    org: {
-      type: userType,
+    orgs: {
+      type: new GraphQLList(orgType),
       args: {
-        orgName: {
+        userName: {
           description: '',
           type: GraphQLString
         }
       },
-      resolve: (root, {orgName}) => github.org(orgName),
+      resolve: (root, {userName}) => github.userOrgs(userName)
     }
   })
 });
+
+export default orgQuery;
