@@ -9,10 +9,11 @@ describe('Authentication: ', () => {
     app = agent(server);
   });
 
-  it('Success', (done) => {
-    app.post('/login')
-      .send({username: 'freddyucv', password: 'leones2009'})
-      .expect(200, done);
+  it('Success', function*() {
+    var res = yield app.post('/login')
+      .send({username: 'freddyucv', password: 'leones2009'}).end();
+
+    expect(res).to.eql(200);
 
   });
 
