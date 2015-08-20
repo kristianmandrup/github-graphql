@@ -4,7 +4,7 @@ import { stringify } from 'querystring';
 import agent from 'supertest-koa-agent';
 import {expect} from 'chai';
 
-describe('Server: ', () => {
+describe('Graphql server: ', () => {
 
   let app;
 

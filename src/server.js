@@ -10,14 +10,20 @@ var route       = require('koa-route');
 var router      = require('koa-router');
 var mount       = require('koa-mount');
 var graphqlServer = require('./graphql-server');
+var authenticateServer = require('./authenticate_server');
+var bodyParser = require('koa-bodyparser');
 
 var app = koa();
+
+app.use(bodyParser());
 app.use(logger());
 
 var credentials = require('../config/credentials');
 
 // add routes to github-graphql here!!!
 app.use(graphqlServer);
+
+authenticateServer(app);
 
 // Custom 404
 app.use(function*(next) {
