@@ -8,14 +8,13 @@ describe('Schema: ', () => {
     });
 
     it('all organizations description', () => {
-        let query = `query orgs_query {
-                      orgs(userName: "freddyucv") {
-                        description
-                      }
-                    }`;
+      let query = `query orgs_query {
+                     orgs(userName: "freddyucv") {
+                       description
+                     }
+                   }`;
 
-
-        graphql(schema, query).then((data) => console.log(JSON.stringify(data)));
+      graphql(schema, query).then((data) => console.log(JSON.stringify(data)));
     });
 
   });

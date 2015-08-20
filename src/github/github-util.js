@@ -52,7 +52,7 @@ export default class Github {
 
     this.octo = new Octokat({
       username: userName,
-      password: "leones2009"
+      password: 'leones2009'
     });
 
     return this.octo.user.orgs.fetch()

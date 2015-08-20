@@ -39,7 +39,7 @@ var orgType = new GraphQLObjectType({
   })
 });
 
-var orgQuery ={
+var orgQuery = {
   orgs: {
     type: new GraphQLList(orgType),
     args: {

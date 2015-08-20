@@ -2,11 +2,7 @@
 
 import yaml from 'js-yaml';
 import fs   from 'fs';
-import path from "path";
-
-
-
-
+import path from 'path';
 
 var dir = path.resolve(__dirname);
 
@@ -22,7 +18,7 @@ export default function(label, elements) {
 
       for (let key in element) {
 
-        if(config[key]){
+        if (config[key]) {
           let value = element[key];
           let newKey = config[key];
           newElement[newKey] = value;

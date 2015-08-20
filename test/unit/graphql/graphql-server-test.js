@@ -21,16 +21,18 @@ describe('Server: ', () => {
                   }`;
 
       let resultExpect = {
-        "orgs":[
-            {"description":"freddyucvTest"}
+        'orgs': [
+            {'description': 'freddyucvTest'}
         ]
       };
 
-      var url = '/graphql?' + stringify({query: query})
+      var url = '/graphql?' + stringify({query: query});
 
       app.get(url).expect(200)
         .end((err, res) => {
-          if (err) throw err;
+          if (err) {
+            throw err;
+          }
 
           expect(res.body.data).to.deep.equal(resultExpect);
           done();
