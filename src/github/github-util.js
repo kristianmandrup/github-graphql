@@ -48,7 +48,7 @@ export default class Github {
   userOrgs(userName, userLogged) {
     console.log('ROOT ' + JSON.stringify(userLogged));
 
-    return userLogged.octo.user.orgs.fetch()
+    return octo.user.orgs.fetch()
       .then((orgs) => util('organization', orgs));
   }
 };

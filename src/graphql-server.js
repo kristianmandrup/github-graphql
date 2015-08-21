@@ -6,7 +6,7 @@ import schema from './graphql/schema/schema';
 
 var graphqlServer = mount('/graphql', graphqlHTTP((request) => ({
   schema: schema,
-  rootValue: request.user
+  rootValue: request
 })));
 
 export default graphqlServer;

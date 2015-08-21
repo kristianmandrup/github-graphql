@@ -26,16 +26,25 @@ export default function(app) {
 
       github.authenticate(credentials).then((octo) => {
         if (octo) {
-          return done(null, {username: username, password: password});
+          credentials.octo = octo;
+          return done(null, credentials);
         }
         return done(null, false);
       });
     }
   ));
 
-  app.use(_.post('/login', passport.authenticate('local'),
-    (req, res) => {
-      console.log('/login');
-    }
-  ));
+  app.use(_.post('/login', function*(next) {
+    var ctx = this;
+    yield passport.authenticate('local', function*(err, user, info) {
+      if (err) {throw err;}
+      if (user === false) {
+        ctx.status = 401;
+        ctx.body = {success: false};
+      } else {
+        yield ctx.login(user);
+        ctx.body = {success: true};
+      }
+    }).call(this, next);
+  }));
 }

@@ -12,17 +12,25 @@ describe('Authentication: ', () => {
   it('Success', function(done) {
     app.post('/login')
       .send({username: 'freddyucv', password: 'leones2009'})
-      .expect(200, done);
-    /*.end((err, res) =>  {
-    if (err) {throw err;}
-    done();
-    });*/
+      .expect(200)
+      .end((err, res) =>  {
+        if (err) {throw err;}
+        expect({success: true}).to.deep.equal(res.body);
+
+        done();
+      });
   });
 
   it('Fail', function(done)  {
     app.post('/login')
       .send({username: 'johndoe', password: 'secret'})
-      .expect(401, done);
+      .expect(401)
+      .end((err, res) =>  {
+        if (err) {throw err;}
+        expect({success: false}).to.deep.equal(res.body);
+
+        done();
+      });
 
   });
 
