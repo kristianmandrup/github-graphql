@@ -1,9 +1,8 @@
 'use strict';
 
-let enums = {
-}
+let enums = {};
 
-enums.repo = new GraphQLEnumType({
+enums.repoType = new GraphQLEnumType({
   name: 'Type',
   description: 'The type of Repository (public or private)',
   values: {

@@ -30,8 +30,8 @@ export default function(app) {
   // SEE: http://www.zev23.com/2014/03/koajs-tutorial-authenticate-with_7.html
   const config = {
     redirects: {successReturnToOrRedirect: '/', failureRedirect: '/'},
-    scopes: {scope: ['user','repo']}
-  }
+    scopes: {scope: ['user', 'repo']}
+  };
 
   publicRouter.get('/auth/github', passport.authenticate('github', config.scopes));
 

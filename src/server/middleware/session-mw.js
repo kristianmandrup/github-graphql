@@ -11,7 +11,7 @@ export default function(app) {
 
   app.use(session({
     cookie: {maxAge: maxAge},
-    store : redis()
+    store: redis()
   }));
   return app;
 }
