@@ -48,7 +48,7 @@ var orgQuery = {
         type: GraphQLString
       }
     },
-    resolve: (root, {userName}) => github.userOrgs(userName)
+    resolve: (root, {userName}) => github.userOrgs(userName, root)
   }
 };
 

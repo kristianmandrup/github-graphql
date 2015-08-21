@@ -1,8 +1,8 @@
 import request from 'supertest-as-promised';
 import server from '../../../src/server';
-import { stringify } from 'querystring';
 import agent from 'supertest-koa-agent';
 import {expect} from 'chai';
+import sendGraphqlQuery from './sendGraphqlQuery';
 
 describe('Graphql server: ', () => {
 
@@ -26,18 +26,20 @@ describe('Graphql server: ', () => {
         ]
       };
 
-      var url = '/graphql?' + stringify({query: query});
+      app.post('/login')
+        .send({username: 'freddyucv', password: 'leones2009'})
+        .expect(200)
+        .end((err, res) =>  {
+          if (err) {throw err;}
 
-      app.get(url).expect(200)
-        .end((err, res) => {
-          if (err) {
-            throw err;
-          }
+          sendGraphqlQuery({
+            app: app,
+            query: query,
+            resultExpect: resultExpect,
+            donde: done
+          });
 
-          expect(res.body.data).to.deep.equal(resultExpect);
-          done();
         });
-
     });
   });
 });

@@ -13,9 +13,6 @@ import util from './github_elements_util';
  * let github = new Github();
  */
 export default class Github {
-  constructor() {
-    this.octo = new Octokat();
-  }
 
   /*
    * Github user's authentication
@@ -27,12 +24,12 @@ export default class Github {
   */
   authenticate(credentials) {
 
-    this.octo = new Octokat({
+    var octo = new Octokat({
       username: credentials.username,
       password: credentials.password
     });
 
-    return this.octo.users(credentials.username).fetch().then((data) => new GithubUser(data, this.octo));
+    return octo.user.fetch().then((octo) => octo, () => null);
   }
 
   /**
@@ -48,14 +45,10 @@ export default class Github {
       .fetch().then((org) => new Organization(org, this.octo));
   }*/
 
-  userOrgs(userName) {
+  userOrgs(userName, userLogged) {
+    console.log('ROOT ' + JSON.stringify(userLogged));
 
-    this.octo = new Octokat({
-      username: userName,
-      password: 'leones2009'
-    });
-
-    return this.octo.user.orgs.fetch()
+    return userLogged.octo.user.orgs.fetch()
       .then((orgs) => util('organization', orgs));
   }
 };
