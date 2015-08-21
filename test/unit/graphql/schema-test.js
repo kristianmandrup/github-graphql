@@ -1,5 +1,5 @@
 import { graphql } from 'graphql';
-import schema from '../../../src/graphql/schema/schema';
+import schema from '../../../src/graphql/schema';
 
 describe('Schema: ', () => {
   describe('Organization', () => {

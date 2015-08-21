@@ -296,7 +296,7 @@ var repos.query = new GraphQLObjectType({
 //   }
 // }
 
-var repos.query = new GraphQLObjectType({
+var orgs.query = new GraphQLObjectType({
   name: 'OrganizationsQuery',
   description: 'Get Organization by id (name)',  
   fields: {

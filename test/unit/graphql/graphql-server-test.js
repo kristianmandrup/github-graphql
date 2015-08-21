@@ -1,5 +1,5 @@
 import request from 'supertest-as-promised';
-import server from '../../../src/server';
+import server from '../../../src';
 import { stringify } from 'querystring';
 import agent from 'supertest-koa-agent';
 import {expect} from 'chai';
