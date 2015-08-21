@@ -1,22 +1,3 @@
-// var enums = {
-//   repo: {}
-// }
-//
-// enums.repo.type = new GraphQLEnumType({
-//   name: 'Type',
-//   description: 'The type of Repository (public or private)',
-//   values: {
-//     PUBLIC: {
-//       value: 1,
-//       description: 'Public repos',
-//     },
-//     PRIVATE: {
-//       value: 2,
-//       description: 'Private repos',
-//     }
-//   }
-// });
-
 // var repos.type = new GraphQLObjectType({
 //   name: 'Repo',
 //   description: 'Repository',
