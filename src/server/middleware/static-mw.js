@@ -1,5 +1,5 @@
-var path = require('path');
-var serve = require('koa-static');
+const path = require('path');
+const serve = require('koa-static');
 
 export default function(app) {
   // Serve the frontend

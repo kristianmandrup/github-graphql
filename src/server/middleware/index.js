@@ -1,4 +1,4 @@
-const mws = ['basic', 'errors', 'routers', 'static'];
+const mws = ['basic', 'logger', 'errors', 'routers', 'static'];
 
 let mwMap = {};
 for (let mw of mws) {

@@ -1,4 +1,4 @@
-var Router = require('koa-router');
+const Router = require('koa-router');
 
 export default function(app) {
   // make router available on app for convenience

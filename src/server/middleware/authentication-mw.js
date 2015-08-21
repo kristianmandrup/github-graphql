@@ -1,7 +1,3 @@
-import passport from 'koa-passport';
-import _ from 'koa-route';
-GithubStrategy = require('passport-github').Strategy;
-
 // PLEASE!!!!
 // READ THIS!!!
 // ===================================================================
@@ -29,9 +25,17 @@ export default function(app) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.router.get('/auth/github', passport.authenticate('github', {scope: ['user','repo']}));
+  publicRouter = app.routers.public;
 
-  app.router.get('/auth/github/callback',
-    passport.authenticate('github', {successRedirect: '/', failureRedirect: '/'})
+  // SEE: http://www.zev23.com/2014/03/koajs-tutorial-authenticate-with_7.html
+  const config = {
+    redirects: {successReturnToOrRedirect: '/', failureRedirect: '/'},
+    scopes: {scope: ['user','repo']}
+  }
+
+  publicRouter.get('/auth/github', passport.authenticate('github', config.scopes));
+
+  publicRouter.get('/auth/github/callback',
+    passport.authenticate('github', config.redirects)
   );
 }

@@ -8,6 +8,8 @@ export default function(app) {
     if (this.req.isAuthenticated()) {
       yield next;
     } else {
+      //Set redirect path in session
+      this.session.returnTo = this.session.returnTo || this.req.url;
       this.redirect('/auth/github');
     }
   }
