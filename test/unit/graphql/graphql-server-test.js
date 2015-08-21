@@ -32,11 +32,15 @@ describe('Graphql server: ', () => {
         .end((err, res) =>  {
           if (err) {throw err;}
 
+          console.log('res ' + JSON.stringify(res));
+          let cookies = res.header['set-cookie'];
+          console.log('cookies ' + cookies);
           sendGraphqlQuery({
             app: app,
             query: query,
             resultExpect: resultExpect,
-            donde: done
+            donde: done,
+            cookies: cookies
           });
 
         });

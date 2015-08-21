@@ -12,6 +12,8 @@ var mount       = require('koa-mount');
 var graphqlServer = require('./graphql-server');
 var authenticateServer = require('./authenticate_server');
 var bodyParser = require('koa-bodyparser');
+// sessions
+var session = require('koa-session')
 
 var app = koa();
 
@@ -19,6 +21,10 @@ app.use(bodyParser());
 app.use(logger());
 
 var credentials = require('../config/credentials');
+
+//session
+app.keys = [credentials.privateKey]
+app.use(session(app))
 
 // add routes to github-graphql here!!!
 app.use(graphqlServer);

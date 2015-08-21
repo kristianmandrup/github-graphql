@@ -16,7 +16,6 @@ describe('Authentication: ', () => {
       .end((err, res) =>  {
         if (err) {throw err;}
         expect({success: true}).to.deep.equal(res.body);
-
         done();
       });
   });
