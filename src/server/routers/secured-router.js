@@ -1,5 +1,6 @@
 import Router from 'koa-router';
 
+// This is the Router used by Github GraphQL
 export default function(app) {
   const securedRouter = new Router();
 

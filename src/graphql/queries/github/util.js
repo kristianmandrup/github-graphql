@@ -5,9 +5,9 @@ import fs   from 'fs';
 import path from 'path';
 
 var dir = path.resolve(__dirname);
+var matchConfig = yaml.safeLoad(fs.readFileSync(`${dir}/github.yml`, 'utf8'));
 
-var matchConfig = yaml.safeLoad(fs.readFileSync(`${dir}/git_hub_match.yml`, 'utf8'));
-
+// WTF does this thing do???
 export default function(label, elements) {
   let config = matchConfig[label];
   let newElements = [];

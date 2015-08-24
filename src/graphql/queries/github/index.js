@@ -1,7 +1,7 @@
 'use strict';
 
 import Octokat from 'octokat';
-import util from './github_elements_util';
+import util from './util';
 
 // require('./server');
 
@@ -26,13 +26,15 @@ export default class Github {
    * @param {Object} credentials username and password
   */
   authenticate(credentials) {
-
     this.octo = new Octokat({
       username: credentials.username,
       password: credentials.password
     });
 
-    return this.octo.users(credentials.username).fetch().then((data) => new GithubUser(data, this.octo));
+    // we create a new GithubUser but where/how can we use it
+    return this.octo.users(credentials.username)
+    .fetch()
+    .then((data) => new GithubUser(data, this.octo));
   }
 
   /**
@@ -48,13 +50,11 @@ export default class Github {
       .fetch().then((org) => new Organization(org, this.octo));
   }*/
 
-  userOrgs(userName) {
+  // WTF!? This is fucking useless!
+  userOrgs() {
+    // should reuse octo from authenticate!!!
 
-    this.octo = new Octokat({
-      username: userName,
-      password: 'leones2009'
-    });
-
+    // WTF!? why do we need this util here!?
     return this.octo.user.orgs.fetch()
       .then((orgs) => util('organization', orgs));
   }

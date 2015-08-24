@@ -3,23 +3,21 @@ import {
   GraphQLSchema,
 } from 'graphql';
 
-import orgQuery from './schemas/org';
+import orgQuery from './schema/org';
 
 let queries = [orgQuery];
-
 let fields = {};
 
-queries.forEach((item) => {
+for(let item of queries) {
   for (var key in item) {
-    let value = item[key];
-    fields[key] = value;
+    fields[key] = item[key];
   }
-});
+}
 
 var graphQLGitHubSchema = new GraphQLSchema({
   query:  new GraphQLObjectType({
     name: 'Query',
-    description: '',
+    description: 'Github Query',
     fields: () => fields
   })
 });
