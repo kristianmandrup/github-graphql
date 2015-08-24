@@ -6,7 +6,7 @@ import {
   GraphQLNonNull,
   GraphQLSchema,
   GraphQLString,
-} from 'graphql.type';
+} from 'graphql';
 
 /*
   type User {
@@ -18,8 +18,8 @@ import {
   }
 */
 
-import Github from '../github/github-util';
-let github = new Github();
+// import Github from '../../github/github-util';
+// let github = new Github();
 
 var userType = new GraphQLObjectType({
   name: 'User',

@@ -3,7 +3,8 @@ import {
   GraphQLSchema,
 } from 'graphql';
 
-import orgQuery from './schema/org';
+import schema from './schema';
+import orgQuery from './org-query';
 
 let queries = [orgQuery];
 let fields = {};

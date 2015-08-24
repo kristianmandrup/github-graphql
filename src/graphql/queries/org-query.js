@@ -1,12 +1,13 @@
 import {
   GraphQLList,
+  GraphQLString
 } from 'graphql';
 
 // WTF!? Here we instantiate github directly!?
-import Github from '../github';
+import Github from './github';
 let github = new Github();
 
-var orgType = require('./types/org');
+var orgType = require('./schema/types/org');
 
 var orgQuery = {
   orgs: {

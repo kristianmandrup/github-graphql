@@ -1,3 +1,10 @@
+import {
+  GraphQLObjectType,
+  GraphQLSchema,
+  GraphQLString,
+  GraphQLNonNull
+} from 'graphql';
+
 export default new GraphQLObjectType({
   name: 'organization',
   description: 'Github organization',
