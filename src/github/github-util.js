@@ -29,45 +29,40 @@ export default class Github {
     let applicationCredentials = require(credentialsFilePath);
 
     let authData = `${credentials.username}:${credentials.password}`;
-    console.log(authData);
     let auth = `Basic ${new Buffer(authData).toString('base64')}`;
-    console.log(auth);
-    let url = `https://api.github.com/authorizations`;
-    //${applicationCredentials.secret}`;
-      console.log(url);
-      console.log(applicationCredentials.clientID);
-      console.log(applicationCredentials.secret);
+    let url = 'https://api.github.com/authorizations';
+
     return new Promise((resolve, reject) => {
-      request.post(
-          {
-              url : url,
-              headers : {
-                  'Authorization' : auth
-              },
-              body: {
-                'client_id': applicationCredentials.clientID,
-                'client_secret': applicationCredentials.secret,
-                'scopes': [
-                  'public_repo'
-                ],
-                'note': 'admin script'
-              },
-              json: true
-          },
-          function (err, res, body) {
-            console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAA ' + err);
-            if (err) {reject(err);}
+      var options = {
+        method: 'POST',
+        url: 'https://api.github.com/authorizations',
+        headers:
+         {
+           'content-type': 'application/json',
+           authorization: auth,
+           'User-Agent':'server'
+         },
+        body:
+         {
+           client_id: applicationCredentials.clientID,
+           client_secret: applicationCredentials.secret,
+           scopes: [ 'public_repo' ],
+           note: 'admin script'
+         },
+        json: true };
 
-            console.log(res.statusCode);
-            console.log(body.token);
+      request(options, function (err, res, body) {
+        if (err) {reject(err);}
 
-            let octo = new Octokat({
-              token: body.token
-            });
+        console.log(res.statusCode);
+        console.log(body.token);
 
-            resolve(octo.user.fetch().then((octo) => octo, () => null));
-          }
-      );
+        let octo = new Octokat({
+          token: body.token
+        });
+
+        resolve(octo.user.fetch().then(() => octo, () => null));
+      });
     });
   }
 
