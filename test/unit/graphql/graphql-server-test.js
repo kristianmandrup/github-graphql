@@ -1,8 +1,8 @@
 import request from 'supertest-as-promised';
-import server from '../../../src/server';
+import server from '../../../src';
+import { stringify } from 'querystring';
 import agent from 'supertest-koa-agent';
 import {expect} from 'chai';
-import sendGraphqlQuery from './sendGraphqlQuery';
 
 describe('Graphql server: ', () => {
 
@@ -26,24 +26,18 @@ describe('Graphql server: ', () => {
         ]
       };
 
-      app.post('/login')
-        .send({username: 'freddyucv', password: 'leones2009'})
-        .expect(200)
-        .end((err, res) =>  {
-          if (err) {throw err;}
+      var url = '/graphql?' + stringify({query: query});
 
-          console.log('res ' + JSON.stringify(res));
-          let cookies = res.header['set-cookie'];
-          console.log('cookies ' + cookies);
-          sendGraphqlQuery({
-            app: app,
-            query: query,
-            resultExpect: resultExpect,
-            donde: done,
-            cookies: cookies
-          });
+      app.get(url).expect(200)
+        .end((err, res) => {
+          if (err) {
+            throw err;
+          }
 
+          expect(res.body.data).to.deep.equal(resultExpect);
+          done();
         });
+
     });
   });
 });

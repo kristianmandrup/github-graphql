@@ -2,6 +2,8 @@
 
 import Octokat from 'octokat';
 import util from './github_elements_util';
+import request from 'request';
+import path from 'path';
 
 // require('./server');
 
@@ -23,13 +25,50 @@ export default class Github {
    * @param {Object} credentials username and password
   */
   authenticate(credentials) {
+    let credentialsFilePath = path.join(global.appRoot, 'config/credentials.js');
+    let applicationCredentials = require(credentialsFilePath);
 
-    var octo = new Octokat({
-      username: credentials.username,
-      password: credentials.password
+    let authData = `${credentials.username}:${credentials.password}`;
+    console.log(authData);
+    let auth = `Basic ${new Buffer(authData).toString('base64')}`;
+    console.log(auth);
+    let url = `https://api.github.com/authorizations`;
+    //${applicationCredentials.secret}`;
+      console.log(url);
+      console.log(applicationCredentials.clientID);
+      console.log(applicationCredentials.secret);
+    return new Promise((resolve, reject) => {
+      request.post(
+          {
+              url : url,
+              headers : {
+                  'Authorization' : auth
+              },
+              body: {
+                'client_id': applicationCredentials.clientID,
+                'client_secret': applicationCredentials.secret,
+                'scopes': [
+                  'public_repo'
+                ],
+                'note': 'admin script'
+              },
+              json: true
+          },
+          function (err, res, body) {
+            console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAA ' + err);
+            if (err) {reject(err);}
+
+            console.log(res.statusCode);
+            console.log(body.token);
+
+            let octo = new Octokat({
+              token: body.token
+            });
+
+            resolve(octo.user.fetch().then((octo) => octo, () => null));
+          }
+      );
     });
-
-    return octo.user.fetch().then((octo) => octo, () => null);
   }
 
   /**

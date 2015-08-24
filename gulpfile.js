@@ -49,9 +49,9 @@ function createLintTask(taskName, files) {
       .pipe($.plumber())
       .pipe($.eslint())
       .pipe($.eslint.format())
-      .pipe($.eslint.failOnError())
-      .pipe($.jscs())
-      .pipe($.notify(jscsNotify));
+      .pipe($.eslint.failOnError());
+      //.pipe($.jscs());
+      //.pipe($.notify(jscsNotify));
   });
 }
 
