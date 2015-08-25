@@ -12,10 +12,12 @@ export default function(app) {
       console.log(`${username} - ${password}`);
 
       let credentials = {username: username, password: password};
-      
-      github.authenticate(credentials).then((octo) => {
-        if (octo) {
-          credentials.octo = octo;
+
+      github.authenticate(credentials).then((token) => {
+        
+        if (token) {
+          credentials.token = token;
+
           return done(null, credentials);
         }
         return done(null, false);
@@ -24,14 +26,12 @@ export default function(app) {
   ));
 
   passport.serializeUser((user, done) => {
-     done(null, {username: user.username, password: user.password});
+     done(null, user);
    });
 
    passport.deserializeUser((user, done) => {
-     github.authenticate(user).then((octo) => {
-       user.octo = octo;
+
        done(null, user);
-     });
    });
 
   return passport;

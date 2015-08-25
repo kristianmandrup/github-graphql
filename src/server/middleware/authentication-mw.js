@@ -18,9 +18,7 @@ export default function(app) {
 
     yield passport.authenticate('local', function*(err, user, info) {
       if (err) {throw err;}
-
-      //ctx.cookies.set("a", "b");
-
+      
       if (user === false) {
         ctx.status = 401;
         ctx.body = {success: false};

@@ -5,6 +5,7 @@ export default function(app) {
 
   //Middleware: authed
   function *authed(next) {
+    console.log('authed');
     if (this.req.isAuthenticated()) {
       yield next;
     } else {

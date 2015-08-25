@@ -14,7 +14,7 @@ describe('Schema: ', () => {
                      }
                    }`;
 
-      graphql(schema, query).then((data) => console.log(JSON.stringify(data)));
+      //graphql(schema, query).then((data) => console.log(JSON.stringify(data)));
     });
 
   });

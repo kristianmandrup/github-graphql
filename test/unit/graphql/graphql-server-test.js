@@ -3,6 +3,7 @@ import server from '../../../src';
 import { stringify } from 'querystring';
 import agent from 'supertest-koa-agent';
 import {expect} from 'chai';
+import sendGraphqlQuery from './sendGraphqlQuery';
 
 describe('Graphql server: ', () => {
 
@@ -20,23 +21,34 @@ describe('Graphql server: ', () => {
                     }
                   }`;
 
-      let resultExpect = {
-        'orgs': [
-            {'description': 'freddyucvTest'}
-        ]
-      };
+      let resultExpect = { orgs: [ { description: 'freddyucvTest' } ] };
 
-      var url = '/graphql?' + stringify({query: query});
+      app.get('/login')
+        .send({username: 'freddyucv', password: 'leones2009'})
+        .expect(200)
+        .end((err, res) =>  {
+          if (err) {throw err;}
 
-      app.get(url).expect(200)
-        .end((err, res) => {
-          if (err) {
-            throw err;
-          }
+          let url = '/graphql?' + stringify({query: query});
 
-          expect(res.body.data).to.deep.equal(resultExpect);
-          done();
-        });
+          app.get(url)
+            .expect(200)
+            .end((err, res) => {
+              if (err) {
+                throw err;
+              }
+
+              expect(res.body.data).to.deep.equal(resultExpect);
+              done();
+            });
+          /*sendGraphqlQuery({
+            app: app,
+            query: query,
+            resultExpect: resultExpect,
+            cookies: cookies,
+            donde: done
+          });*/
+      });
 
     });
   });

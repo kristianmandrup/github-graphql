@@ -46,7 +46,7 @@ export default class Github {
          {
            client_id: applicationCredentials.clientID,
            client_secret: applicationCredentials.secret,
-           scopes: [ 'public_repo' ],
+           scopes: [ 'public_repo', 'read:org'],
            note: 'admin script'
          },
         json: true };
@@ -54,14 +54,15 @@ export default class Github {
       request(options, function (err, res, body) {
         if (err) {reject(err);}
 
-        console.log(res.statusCode);
-        console.log(body.token);
+        if (body.token){
+          let octo = new Octokat({
+            token: body.token
+          });
 
-        let octo = new Octokat({
-          token: body.token
-        });
-
-        resolve(octo.user.fetch().then(() => octo, () => null));
+          resolve(octo.user.fetch().then(() => body.token, () => null));
+        }else{
+          return resolve(null);
+        }
       });
     });
   }
@@ -80,7 +81,10 @@ export default class Github {
   }*/
 
   userOrgs(userName, userLogged) {
-    console.log('ROOT ' + JSON.stringify(userLogged));
+
+    let octo = new Octokat({
+      token: userLogged.token
+    });
 
     return octo.user.orgs.fetch()
       .then((orgs) => util('organization', orgs));
