@@ -15,22 +15,20 @@ describe('Schema: ', () => {
                      }
                    }`;
 
-      let resultExpect = { orgs: [ { description: 'freddyucvTest' } ] };
+      let resultExpect = {orgs: [{description: 'freddyucvTest'}]};
 
       let user = {};
 
       //TODO: change by a fake github server
-      user.octo =new Octokat({
+      user.octo = new Octokat({
         username: 'freddyucv',
         password: 'leones2009'
       });
 
-      graphql(schema, query, user).then((data) =>
-        {
-          done();
-          expect(data).to.deep.equal(resultExpect);
-        }
-      );
+      graphql(schema, query, user).then((data) => {
+        done();
+        expect(data).to.deep.equal(resultExpect);
+      });
     });
 
     it('all organizations description', (done) => {
@@ -41,22 +39,20 @@ describe('Schema: ', () => {
                      }
                    }`;
 
-      let resultExpect = { orgs: [ { description: 'freddyucvTest' } ] };
+      let resultExpect = {orgs: [{description: 'freddyucvTest'}]};
 
       let user = {};
 
       //TODO: change by a fake github server
-      user.octo =new Octokat({
+      user.octo = new Octokat({
         username: 'freddyucv',
         password: 'leones2009'
       });
 
-      graphql(schema, query, user).then((data) =>
-        {
-          done();
-          expect(data).to.deep.equal(resultExpect);
-        }
-      );
+      graphql(schema, query, user).then((data) => {
+        done();
+        expect(data).to.deep.equal(resultExpect);
+      });
     });
 
   });

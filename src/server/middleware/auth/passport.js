@@ -26,18 +26,18 @@ export default function(app) {
   ));
 
   passport.serializeUser((user, done) => {
-     done(null, user);
-   });
+    done(null, user);
+  });
 
-   passport.deserializeUser((user, done) => {
-       let octo = new Octokat({
-         token: user.token
-       });
+  passport.deserializeUser((user, done) => {
+    let octo = new Octokat({
+      token: user.token
+    });
 
-       user.octo = octo;
-       
-       done(null, user);
-   });
+    user.octo = octo;
+
+    done(null, user);
+  });
 
   return passport;
 }

@@ -7,12 +7,12 @@ export default function(opts) {
   opts.app.get(url)
     .set('Cookie', opts.cookies)
     .expect(200, opts.done);
-    /*.end((err, res) => {
-      if (err) {
-        throw err;
-      }
+/*.end((err, res) => {
+  if (err) {
+    throw err;
+  }
 
-      expect(res.body.data).to.deep.equal(opts.resultExpect);
-      opts.done();
-    });*/
+  expect(res.body.data).to.deep.equal(opts.resultExpect);
+  opts.done();
+});*/
 }

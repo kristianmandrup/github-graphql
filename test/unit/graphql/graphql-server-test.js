@@ -21,7 +21,7 @@ describe('Graphql server: ', () => {
                     }
                   }`;
 
-      let resultExpect = { orgs: [ { description: 'freddyucvTest' } ] };
+      let resultExpect = {orgs: [{description: 'freddyucvTest'}]};
 
       app.get('/login')
         .send({username: 'freddyucv', password: 'leones2009'})
@@ -41,6 +41,8 @@ describe('Graphql server: ', () => {
               expect(res.body.data).to.deep.equal(resultExpect);
               done();
             });
+
+          //TODO: use reusing function
           /*sendGraphqlQuery({
             app: app,
             query: query,
@@ -48,7 +50,7 @@ describe('Graphql server: ', () => {
             cookies: cookies,
             donde: done
           });*/
-      });
+        });
 
     });
   });
