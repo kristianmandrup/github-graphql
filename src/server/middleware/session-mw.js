@@ -8,9 +8,11 @@ export default function(app) {
 
   // TODO: load from config file!
   const maxAge = 1000 * 30;
-  app.use(session(
+  const redisSession = session({
     store: redisStore()
-  ));
+  });
+
+  app.use(redisSession);
 
   return app;
 }
