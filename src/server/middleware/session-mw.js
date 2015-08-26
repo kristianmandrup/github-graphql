@@ -1,5 +1,6 @@
 // See: http://www.zev23.com/2014/03/koajs-tutorial-authenticate-with_7.html
-import session from 'koa-session';
+import session from 'koa-generic-session';
+import redisStore from 'koa-redis';
 
 export default function(app) {
   // TODO: use key name loaded from config file
@@ -7,7 +8,9 @@ export default function(app) {
 
   // TODO: load from config file!
   const maxAge = 1000 * 30;
-  app.use(session(app));
+  app.use(session(
+    store: redisStore()
+  ));
 
   return app;
 }
