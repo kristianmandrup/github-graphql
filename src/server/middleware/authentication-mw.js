@@ -1,9 +1,9 @@
 
-import passport_config from './auth/passport';
+import passportConfig from './auth/passport';
 import _ from 'koa-route';
 
 export default function(app) {
-  var passport = passport_config(app);
+  var passport = passportConfig(app);
 
   app.use(passport.initialize());
   app.use(passport.session());
@@ -18,7 +18,7 @@ export default function(app) {
 
     yield passport.authenticate('local', function*(err, user, info) {
       if (err) {throw err;}
-      
+
       if (user === false) {
         ctx.status = 401;
         ctx.body = {success: false};

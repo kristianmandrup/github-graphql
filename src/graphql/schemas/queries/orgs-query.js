@@ -16,6 +16,7 @@ let github = new Github();
 export default {
   orgs: {
     type: new GraphQLList(orgType),
+    description: 'return all the organizations from a user, this method dont return neither teams or events',
     args: {
       userName: {
         description: '',
@@ -23,7 +24,15 @@ export default {
       }
     },
     resolve: (root, {userName}) => github.userOrgs(userName, root)
-  }
+  }/*,
+  orgs: {
+   type: orgs.type,
+   args: {
+     id: {
+       description: 'the id (name) of the organization',
+       type: new GraphQLNonNull(GraphQLString)
+     }
+   }*/
 };
 
 //TODO: delete when this type will be done

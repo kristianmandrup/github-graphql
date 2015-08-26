@@ -17,11 +17,11 @@ describe('Authentication: ', () => {
     app = agent(server);
   });
 
-  it('Success', function  (done) {
+  it('Success', function(done) {
     app.get('/login').send(users.valid).expect(200, done);
   });
 
-  it('Fail', function (done) {
+  it('Fail', function(done) {
     app.get('/login').send(users.invalid).expect(401, done);
   });
 

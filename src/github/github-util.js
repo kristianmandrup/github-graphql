@@ -40,27 +40,27 @@ export default class Github {
          {
            'content-type': 'application/json',
            authorization: auth,
-           'User-Agent':'server'
+           'User-Agent': 'server'
          },
         body:
          {
-           client_id: applicationCredentials.clientID,
-           client_secret: applicationCredentials.secret,
-           scopes: [ 'public_repo', 'read:org'],
+           'client_id': applicationCredentials.clientID,
+           'client_secret': applicationCredentials.secret,
+           scopes: ['public_repo', 'read:org'],
            note: 'admin script'
          },
-        json: true };
+        json: true};
 
-      request(options, function (err, res, body) {
+      request(options, function(err, res, body) {
         if (err) {reject(err);}
 
-        if (body.token){
+        if (body.token) {
           let octo = new Octokat({
             token: body.token
           });
 
           resolve(octo.user.fetch().then(() => body.token, () => null));
-        }else{
+        }else {
           return resolve(null);
         }
       });
@@ -83,7 +83,7 @@ export default class Github {
   userOrgs(userName, userLogged) {
 
     //TODO: delete when passport deserializeUser work
-    if (!userLogged.octo){
+    if (!userLogged.octo) {
       userLogged.octo = new Octokat({
         token: userLogged.token
       });
