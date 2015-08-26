@@ -1,6 +1,6 @@
 'use strict';
 
-let enums = {};
+/*let enums = {};
 
 enums.repoType = new GraphQLEnumType({
   name: 'Type',
@@ -17,4 +17,4 @@ enums.repoType = new GraphQLEnumType({
   }
 });
 
-module.exports = enums;
+module.exports = enums;*/

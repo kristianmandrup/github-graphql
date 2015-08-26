@@ -1,7 +1,7 @@
 import EventType from './event-type';
 import RepoType from './repo-type';
 
-export default new GraphQLObjectType({
+/*export default new GraphQLObjectType({
   name: 'User',
   description: 'User',
   fields: () => ({
@@ -42,4 +42,4 @@ export default new GraphQLObjectType({
       }
     }
   })
-});
+});*/

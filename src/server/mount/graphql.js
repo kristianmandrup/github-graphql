@@ -6,9 +6,9 @@ import path from 'path';
 import { graphql } from 'graphql';
 
 export default function(app) {
-  let schemaPath = path.join(app.rootPath, 'src/graphql/schema');
+  let schemaPath = path.join(app.rootPath, 'src/graphql/schemas');
   let schema = require(schemaPath);
-
+  
   let graphqlServer = mount('/graphql',
     function * ()  {
       let query = this.query.query;

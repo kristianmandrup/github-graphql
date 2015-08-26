@@ -1,3 +1,38 @@
+import {
+  GraphQLEnumType,
+  GraphQLInterfaceType,
+  GraphQLObjectType,
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLSchema,
+  GraphQLString
+} from 'graphql';
+
+/*
+type Organization {
+  id: String!
+  description: String
+  teams: [Team]
+  events: [Event]
+}
+*/
+
+export default new GraphQLObjectType({
+  name: 'organization',
+  description: 'Organization such as a company',
+  fields: () => ({
+    id: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'The github server id of the org.',
+    },
+    description: {
+      type: GraphQLString,
+      description: 'Organization description',
+    }
+  })
+});
+
+//TODO: delete when this type will be done
 // var orgs = {}
 // var orgs.type = new GraphQLObjectType({
 //   name: 'Organization',

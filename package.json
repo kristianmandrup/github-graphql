@@ -51,7 +51,8 @@
     "passport-local": "^1.0.0",
     "path": "^0.11.14",
     "querystring": "^0.2.0",
-    "request": "^2.61.0"
+    "request": "^2.61.0",
+    "requiredir": "^1.0.7"
   },
   "devDependencies": {
     "babel-core": "^5.2.17",

@@ -1,3 +1,32 @@
+import {
+  GraphQLEnumType,
+  GraphQLInterfaceType,
+  GraphQLObjectType,
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLSchema,
+  GraphQLString
+} from 'graphql';
+
+import orgType from './type/orgs-type';
+
+import Github from '../../../github/github-util';
+let github = new Github();
+
+export default {
+  orgs: {
+    type: new GraphQLList(orgType),
+    args: {
+      userName: {
+        description: '',
+        type: GraphQLString
+      }
+    },
+    resolve: (root, {userName}) => github.userOrgs(userName, root)
+  }
+};
+
+//TODO: delete when this type will be done
 // var orgs = {};
 // var orgs.query = new GraphQLObjectType({
 //   name: 'OrganizationsQuery',

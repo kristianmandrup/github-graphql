@@ -3,7 +3,7 @@
 * Use Query like this
 *   user(id: 'freddyucv')
 */
-import UserType from './type/user-type';
+/*import UserType from './type/user-type';
 
 export default new GraphQLObjectType({
   name: 'UserQuery',
@@ -24,4 +24,4 @@ export default new GraphQLObjectType({
       }
     }
   }
-});
+});*/

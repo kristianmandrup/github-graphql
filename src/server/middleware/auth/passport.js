@@ -14,7 +14,7 @@ export default function(app) {
       let credentials = {username: username, password: password};
 
       github.authenticate(credentials).then((token) => {
-        
+
         if (token) {
           credentials.token = token;
 
@@ -30,7 +30,12 @@ export default function(app) {
    });
 
    passport.deserializeUser((user, done) => {
+       let octo = new Octokat({
+         token: user.token
+       });
 
+       user.octo = octo;
+       
        done(null, user);
    });
 

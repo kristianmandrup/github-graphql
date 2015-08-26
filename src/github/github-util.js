@@ -82,11 +82,14 @@ export default class Github {
 
   userOrgs(userName, userLogged) {
 
-    let octo = new Octokat({
-      token: userLogged.token
-    });
+    //TODO: delete when passport deserializeUser work
+    if (!userLogged.octo){
+      userLogged.octo = new Octokat({
+        token: userLogged.token
+      });
+    }
 
-    return octo.user.orgs.fetch()
+    return userLogged.octo.user.orgs.fetch()
       .then((orgs) => util('organization', orgs));
   }
 };

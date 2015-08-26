@@ -1,5 +1,6 @@
 import { graphql } from 'graphql';
-import schema from '../../../src/graphql/schema';
+import schema from '../../../src/graphql/schemas';
+import Octokat from 'octokat';
 
 describe('Schema: ', () => {
   describe('Organization', () => {
@@ -7,14 +8,29 @@ describe('Schema: ', () => {
 
     });
 
-    it('all organizations description', () => {
+    it('all organizations description', (done) => {
       let query = `query orgs_query {
                      orgs(userName: "freddyucv") {
                        description
                      }
                    }`;
 
-      //graphql(schema, query).then((data) => console.log(JSON.stringify(data)));
+      let resultExpect = { orgs: [ { description: 'freddyucvTest' } ] };
+
+      let user = {};
+
+      //TODO: change by a fake github server
+      user.octo =new Octokat({
+        username: 'freddyucv',
+        password: 'leones2009'
+      });
+
+      graphql(schema, query, user).then((data) =>
+        {
+          done();
+          expect(data).to.deep.equal(resultExpect);
+        }
+      );
     });
 
   });
