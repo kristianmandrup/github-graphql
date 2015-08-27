@@ -1,9 +1,7 @@
 import passport from 'koa-passport';
 import path from 'path';
-import Github from '../../../github/github-util';
+import github from '../../../github-util';
 var LocalStrategy = require('passport-local').Strategy;
-
-let github = new Github();
 
 export default function(app) {
   passport.use('local', new LocalStrategy(

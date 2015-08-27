@@ -10,9 +10,7 @@ import {
 
 import orgType from './type/orgs-type';
 import teamType from './type/team-type';
-
-import Github from '../../../github/github-util';
-let github = new Github();
+import github from '../../../github-util';
 
 export default {
   orgs: {
@@ -24,7 +22,7 @@ export default {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: (root, {userName}) => github.userOrgs(userName, root)
+    resolve: (root, {userName}) => github.org.userOrgs(userName, root)
   },
   org: {
     type: new GraphQLList(teamType),
@@ -34,7 +32,7 @@ export default {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: (root, {description}) => github.org(description, root)
+    resolve: (root, {description}) => github.org.org(description, root)
   }
 };
 

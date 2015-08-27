@@ -16,7 +16,6 @@ describe('Schema: ', () => {
                      }
                    }`;
 
-
       let resultExpect = {
         orgs: [
           {
@@ -46,11 +45,10 @@ describe('Schema: ', () => {
                      }
                    }`;
 
-
       let resultExpect = {
-        "org":[
-          {"name":"Owners"},
-          {"name":"team_test"}
+        'org': [
+          {'name': 'Owners'},
+          {'name': 'team_test'}
         ]
       };
 
@@ -67,7 +65,6 @@ describe('Schema: ', () => {
         chai.expect(data.data).to.deep.equal(resultExpect);
       });
     });
-
 
   });
 });
