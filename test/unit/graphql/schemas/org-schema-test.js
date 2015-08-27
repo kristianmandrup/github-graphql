@@ -24,9 +24,14 @@ describe('Schema: ', () => {
       let query = queries.orgMethod;
 
       let resultExpect = {
-        'org': [
-          {'name': 'Owners'},
-          {'name': 'team_test'}
+        org: [
+          {
+            description: 'freddyucvTest',
+            teams: [
+              {'name': 'Owners'},
+              {'name': 'team_test'}
+            ]
+          }
         ]
       };
 

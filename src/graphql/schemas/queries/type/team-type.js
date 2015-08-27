@@ -34,5 +34,6 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       description: 'Organization description',
     }
+    //TODO: members
   })
 });

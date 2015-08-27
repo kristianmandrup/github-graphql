@@ -8,7 +8,10 @@ queries.orgsMethod = `query orgs_query {
 
 queries.orgMethod = `query orgs_query {
                         org(description: "freddyucvTest") {
-                          name
+                          description
+                          teams
+                            name
+                            description
                         }
                       }`;
 
