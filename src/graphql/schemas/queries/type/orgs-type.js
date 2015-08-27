@@ -34,12 +34,12 @@ export default new GraphQLObjectType({
     teams: {
       type: new GraphQLList(teamType),
       description: 'The teams of the organization.',
-      resolve: (org) => org.teams.fetch();
-    },
+      resolve: (org) => org.teams.fetch()
+    }/*,
     events:{
       type: new GraphQLList(teamType),
       description: 'The teams of the organization.',
-      resolve: (org) => org.teams.fetch();      
-    }
+      resolve: (org) => org.teams.fetch();
+    }*/
   })
 });

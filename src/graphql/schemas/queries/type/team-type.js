@@ -8,6 +8,8 @@ import {
   GraphQLString
 } from 'graphql';
 
+import userType from './user-type';
+
 /*
 type Team {
   id: String!
@@ -33,7 +35,11 @@ export default new GraphQLObjectType({
     description: {
       type: GraphQLString,
       description: 'Organization description',
+    },
+    members: {
+      type: new GraphQLList(userType),
+      description: 'Teams members.',
+      resolve: (team) => team.members.fetch()
     }
-    //TODO: members
   })
 });

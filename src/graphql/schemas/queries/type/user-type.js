@@ -1,7 +1,17 @@
+import {
+  GraphQLEnumType,
+  GraphQLInterfaceType,
+  GraphQLObjectType,
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLSchema,
+  GraphQLString
+} from 'graphql';
+
 import EventType from './event-type';
 import RepoType from './repo-type';
 
-/*export default new GraphQLObjectType({
+export default new GraphQLObjectType({
   name: 'User',
   description: 'User',
   fields: () => ({
@@ -11,7 +21,7 @@ import RepoType from './repo-type';
       resolve: (user) => {
         return user.name;
       }
-    },
+    }/*,
     events: {
       type: new GraphQLList(EventType),
       description: 'The events of the user, or an empty list if they have none.',
@@ -40,6 +50,6 @@ import RepoType from './repo-type';
       resolve: (user) => {
         return user.repos.fetch();
       }
-    }
+    }*/
   })
-});*/
+});
