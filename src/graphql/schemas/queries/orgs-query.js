@@ -10,7 +10,7 @@ import {
 
 import orgType from './type/orgs-type';
 import teamType from './type/team-type';
-import github from '../../../github-util';
+import checkOcto from './checkOcto';
 
 export default {
   orgs: {
@@ -22,7 +22,13 @@ export default {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: (root, {userName}) => github.org.userOrgs(userName, root)
+    resolve: (userLogged, {userName}) => {
+      //TODO: delete when passport deserializeUser work
+      checkOcto(userLogged);
+
+      return userLogged.octo.user.orgs.fetch()
+        .then((orgs) => orgs);
+    }
   },
   org: {
     type: orgType,
@@ -32,7 +38,12 @@ export default {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: (root, {description}) => github.org.org(description, root)
+    resolve: (userLogged, {description}) => {
+      //TODO: delete when passport deserializeUser work
+      checkOcto(userLogged);
+
+      return userLogged.octo.orgs(orgDescription).fetch().then();
+    }
   }
 };
 
