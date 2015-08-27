@@ -1,8 +1,0 @@
-organization:
-  id: id
-  login: description
-
-team:
-  id: id
-  name: name
-  description: description    

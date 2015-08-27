@@ -1,6 +1,6 @@
 import passport from 'koa-passport';
 import path from 'path';
-import github from '../../../github-util';
+import authenticate from './authenticate';
 var LocalStrategy = require('passport-local').Strategy;
 
 export default function(app) {
@@ -11,7 +11,7 @@ export default function(app) {
 
       let credentials = {username: username, password: password};
 
-      github.authenticate(credentials).then((token) => {
+      authenticate(credentials).then((token) => {
 
         if (token) {
           credentials.token = token;

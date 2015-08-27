@@ -10,7 +10,7 @@ import {
 
 import orgType from './type/orgs-type';
 import teamType from './type/team-type';
-import checkOcto from './checkOcto';
+import checkOcto from '../../../checkOcto';
 
 export default {
   orgs: {
@@ -22,11 +22,11 @@ export default {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: (userLogged, {userName}) => {
+    resolve: (root, {userName}) => {
       //TODO: delete when passport deserializeUser work
-      checkOcto(userLogged);
+      checkOcto(root);
 
-      return userLogged.octo.user.orgs.fetch()
+      return root.octo.user.orgs.fetch()
         .then((orgs) => orgs);
     }
   },
@@ -38,11 +38,11 @@ export default {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: (userLogged, {description}) => {
+    resolve: (root, {description}) => {
       //TODO: delete when passport deserializeUser work
-      checkOcto(userLogged);
+      checkOcto(root);
 
-      return userLogged.octo.orgs(orgDescription).fetch().then();
+      return root.octo.orgs(description).fetch().then();
     }
   }
 };
