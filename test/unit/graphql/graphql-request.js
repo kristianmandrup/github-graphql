@@ -14,8 +14,8 @@ export default (query, resultExpect, done) => {
 
   graphql(schema, query, user).then((data) => {
     done();
-    console.log(data.data);
-    console.log(resultExpect);
+    console.log(`data: ${JSON.stringify(data.data)}`);
+    console.log(`resultExpect: ${JSON.stringify(resultExpect)}`);
     expect(data.data).to.deep.equal(resultExpect);
   });
 };

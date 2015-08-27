@@ -25,7 +25,7 @@ export default {
     resolve: (root, {userName}) => github.org.userOrgs(userName, root)
   },
   org: {
-    type: new GraphQLList(teamType),
+    type: orgType,
     args: {
       description: {
         description: 'the id (name) of the organization',

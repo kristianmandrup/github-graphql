@@ -1,3 +1,5 @@
+//TODO: delete when passports deserializeUser work (i think)
+
 let github = {};
 
 github.authenticate = require('./util/authenticate');

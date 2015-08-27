@@ -12,7 +12,7 @@ describe('Schema: ', () => {
       let resultExpect = {
         orgs: [
           {
-            description: 'freddyucvTest'
+            login: 'freddyucvTest'
           }
         ]
       };
@@ -26,7 +26,7 @@ describe('Schema: ', () => {
       let resultExpect = {
         org: [
           {
-            description: 'freddyucvTest',
+            login: 'freddyucvTest',
             teams: [
               {'name': 'Owners'},
               {'name': 'team_test'}

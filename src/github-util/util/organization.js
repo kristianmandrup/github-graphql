@@ -12,7 +12,7 @@ export default {
     checkOcto(userLogged);
 
     return userLogged.octo.user.orgs.fetch()
-      .then((orgs) => util('organization', orgs));
+      .then((orgs) => orgs);
   },
 
   org: function(orgDescription, userLogged) {
@@ -20,7 +20,7 @@ export default {
     //TODO: delete when passport deserializeUser work
     checkOcto(userLogged);
 
-    return userLogged.octo.orgs(orgDescription).teams.fetch()
-      .then((teams) =>  util('team', teams));
+    return userLogged.octo.orgs(orgDescription).fetch()
+      .then((org) =>  {console.log('AAAAAAAAAAAAAAA');return org});
   }
 };

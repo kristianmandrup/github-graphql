@@ -13,7 +13,7 @@ import teamType from './team-type';
 /*
 type Organization {
   id: String!
-  description: String
+  login: String
   teams: [Team]
   events: [Event]
 }
@@ -27,37 +27,19 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString),
       description: 'The github server id of the org.',
     },
-    description: {
+    login: {
       type: GraphQLString,
       description: 'Organization description',
     },
     teams: {
       type: new GraphQLList(teamType),
-      description: 'Organization teams',
+      description: 'The teams of the organization.',
+      resolve: (org) => org.teams.fetch();
+    },
+    events:{
+      type: new GraphQLList(teamType),
+      description: 'The teams of the organization.',
+      resolve: (org) => org.teams.fetch();      
     }
   })
 });
-
-//TODO: delete when this type will be done
-// var orgs = {}
-// var orgs.type = new GraphQLObjectType({
-//   name: 'Organization',
-//   description: 'Organization such as a company',
-//   fields: () => ({
-//     events: {
-//       type: new GraphQLList(events.type),
-//       description: 'The events of the organization.',
-//       resolve: (org) => {
-//         return org.events.fetch();
-//       }
-//     },
-//     teams: {
-//       type: new GraphQLList(teams.type),
-//       description: 'The teams of the organization.',
-//       resolve: (org) => {
-//         return org.teams.fetch();
-//       }
-//     }
-//     // ...
-//   });
-// });
