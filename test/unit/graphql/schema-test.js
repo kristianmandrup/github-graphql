@@ -1,6 +1,7 @@
 import { graphql } from 'graphql';
 import schema from '../../../src/graphql/schemas';
 import Octokat from 'octokat';
+import chai from 'chai';
 
 describe('Schema: ', () => {
   describe('Organization', () => {
@@ -15,7 +16,14 @@ describe('Schema: ', () => {
                      }
                    }`;
 
-      let resultExpect = {orgs: [{description: 'freddyucvTest'}]};
+
+      let resultExpect = {
+        orgs: [
+          {
+            description: 'freddyucvTest'
+          }
+        ]
+      };
 
       let user = {};
 
@@ -27,19 +35,24 @@ describe('Schema: ', () => {
 
       graphql(schema, query, user).then((data) => {
         done();
-        expect(data).to.deep.equal(resultExpect);
+        expect(data.data).to.deep.equal(resultExpect);
       });
     });
 
-    it('all organizations description', (done) => {
+    it('Get Organization by id (name)', (done) => {
       let query = `query orgs_query {
-                     orgs(userName: "freddyucv") {
-                       description
-                       teams
+                     org(description: "freddyucvTest") {
+                       name
                      }
                    }`;
 
-      let resultExpect = {orgs: [{description: 'freddyucvTest'}]};
+
+      let resultExpect = {
+        "org":[
+          {"name":"Owners"},
+          {"name":"team_test"}
+        ]
+      };
 
       let user = {};
 
@@ -51,9 +64,10 @@ describe('Schema: ', () => {
 
       graphql(schema, query, user).then((data) => {
         done();
-        expect(data).to.deep.equal(resultExpect);
+        chai.expect(data.data).to.deep.equal(resultExpect);
       });
     });
+
 
   });
 });

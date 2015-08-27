@@ -9,6 +9,7 @@ import {
 } from 'graphql';
 
 import orgType from './type/orgs-type';
+import teamType from './type/team-type';
 
 import Github from '../../../github/github-util';
 let github = new Github();
@@ -20,19 +21,21 @@ export default {
     args: {
       userName: {
         description: '',
-        type: GraphQLString
+        type: new GraphQLNonNull(GraphQLString)
       }
     },
     resolve: (root, {userName}) => github.userOrgs(userName, root)
-  }/*,
-  orgs: {
-   type: orgs.type,
-   args: {
-     id: {
-       description: 'the id (name) of the organization',
-       type: new GraphQLNonNull(GraphQLString)
-     }
-   }*/
+  },
+  org: {
+    type: new GraphQLList(teamType),
+    args: {
+      description: {
+        description: 'the id (name) of the organization',
+        type: new GraphQLNonNull(GraphQLString)
+      }
+    },
+    resolve: (root, {description}) => github.org(description, root)
+  }
 };
 
 //TODO: delete when this type will be done

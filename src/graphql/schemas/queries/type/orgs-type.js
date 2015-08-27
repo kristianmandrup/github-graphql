@@ -8,6 +8,8 @@ import {
   GraphQLString
 } from 'graphql';
 
+import teamType from './team-type';
+
 /*
 type Organization {
   id: String!
@@ -28,6 +30,10 @@ export default new GraphQLObjectType({
     description: {
       type: GraphQLString,
       description: 'Organization description',
+    },
+    teams: {
+      type: new GraphQLList(teamType),
+      description: 'Organization teams',
     }
   })
 });
