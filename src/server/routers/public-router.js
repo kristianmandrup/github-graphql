@@ -5,6 +5,9 @@ export default function(app) {
   let router = new Router();
 
   // define public routes here...
+  router.get("/testing", function*(){
+    console.log(this.session);
+  });
 
   return router;
 }

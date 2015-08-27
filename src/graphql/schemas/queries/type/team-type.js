@@ -15,8 +15,7 @@ type Team {
   id: String!
   name: String
   description: String
-  members: [User] // or TeamMember?
-  // ...
+  members: [User]
 }
 */
 

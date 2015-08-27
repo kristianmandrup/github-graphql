@@ -38,8 +38,8 @@ export default new GraphQLObjectType({
     }/*,
     events:{
       type: new GraphQLList(teamType),
-      description: 'The teams of the organization.',
-      resolve: (org) => org.teams.fetch();
+      description: 'The events of the organization.',
+      resolve: (org) => org.events.fetch();
     }*/
   })
 });
