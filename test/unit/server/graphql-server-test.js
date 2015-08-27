@@ -24,8 +24,8 @@ describe('Graphql server: ', () => {
         .end((err, res) =>  {
           if (err) {throw err;}
 
-          //let url = '/graphql?' + stringify({query: query});
-          let url = '/testing';
+          let url = '/graphql?' + stringify({query: query});
+
           app.get(url)
             .expect(200)
             .end((err, res) => {
