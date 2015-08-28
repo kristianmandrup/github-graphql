@@ -10,6 +10,7 @@ import {
 
 import teamType from './team-type';
 import eventType from './event-type';
+import EntityType from './entity-type';
 
 /*
 type Organization {
@@ -29,7 +30,7 @@ export default new GraphQLObjectType({
       description: 'The github server id of the org.',
     },
     login: {
-      type: GraphQLString,
+      type:  new GraphQLNonNull(GraphQLString),
       description: 'Organization description',
     },
     teams: {
@@ -42,5 +43,6 @@ export default new GraphQLObjectType({
       description: 'The events of the organization.',
       resolve: (org) => org.issues.events.fetch()
     }*/
-  })
+  }),
+  interfaces: [ EntityType ]
 });

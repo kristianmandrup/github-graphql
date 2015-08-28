@@ -1,3 +1,42 @@
+import {
+  GraphQLEnumType,
+  GraphQLInterfaceType,
+  GraphQLObjectType,
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLSchema,
+  GraphQLString
+} from 'graphql';
+
+import EntityType from './type/entity-type';
+import RepoType from './type/repo-type';
+
+export default {
+  repo: {
+    type: RepoType,
+    args: {
+      loginEntity: {
+        description: 'either an Organization or User login',
+        type: new GraphQLNonNull(GraphQLString)
+      },
+      name: {
+        description: 'the id (name) of the repo',
+        type: new GraphQLNonNull(GraphQLString)
+      }
+    },
+    // repos for the entity,
+    // ie. either an Organization or User
+    // this will return the Repo found as the
+    // entityDescription argument
+    resolve: (userLogged, {loginEntity, name}) => {
+      //TODO: delete when passport deserializeUser work
+      checkOcto(userLogged);
+
+      return {};//entity.repos(id).fetch();
+    }
+  }
+}
+
 // var repos.query = new GraphQLObjectType({
 //   name: 'ReposQuery',
 //   description: 'Get Repositories by type and/or owner',
@@ -27,22 +66,3 @@
 //     }
 //   }
 // }
-
-/*
-repo: {
-  type: repos.type,
-  description: 'A repo of the user by name',
-  args: {
-    id: {
-      name: 'name',
-      type: new GraphQLNonNull(GraphQLString)
-    }
-  },
-  // will be called with the user resolved by the UserQuery
-  // ie. from user(id: 'username')
-  resolve: (user) => {
-    return user.repos.fetch();
-  }
-}
-
-*/

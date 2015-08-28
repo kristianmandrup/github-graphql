@@ -10,6 +10,7 @@ import {
 
 import EventType from './event-type';
 import RepoType from './repo-type';
+import EntityType from './entity-type';
 
 /*
 type User {
@@ -56,5 +57,6 @@ export default new GraphQLObjectType({
       description: 'The repos of the user, or an empty list if they have none.',
       resolve: (user) => user.repos.fetch()
     }
-  })
+  }),
+  interfaces: [ EntityType ]
 });
