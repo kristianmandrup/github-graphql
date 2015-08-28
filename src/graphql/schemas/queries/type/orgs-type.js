@@ -9,6 +9,7 @@ import {
 } from 'graphql';
 
 import teamType from './team-type';
+import eventType from './event-type';
 
 /*
 type Organization {
@@ -37,9 +38,9 @@ export default new GraphQLObjectType({
       resolve: (org) => org.teams.fetch()
     }/*,
     events:{
-      type: new GraphQLList(teamType),
+      type: new GraphQLList(eventType),
       description: 'The events of the organization.',
-      resolve: (org) => org.events.fetch();
+      resolve: (org) => org.issues.events.fetch()
     }*/
   })
 });

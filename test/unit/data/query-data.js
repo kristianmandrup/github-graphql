@@ -15,4 +15,16 @@ queries.orgMethod = `query orgs_query {
                         }
                       }`;
 
+queries.getUserByName = `query user_query {
+                            user(login: "freddyucv") {
+                              id
+                              login
+                              name
+                              company
+                              repos{
+                                name
+                              }
+                            }
+                          }`;
+
 export default queries;

@@ -22,12 +22,11 @@ export default {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: (root, {userName}) => {
+    resolve: (userLogged, {userName}) => {
       //TODO: delete when passport deserializeUser work
-      checkOcto(root);
+      checkOcto(userLogged);
 
-      return root.octo.user.orgs.fetch()
-        .then((orgs) => orgs);
+      return userLogged.octo.user.orgs.fetch();
     }
   },
   org: {
@@ -38,36 +37,11 @@ export default {
         type: new GraphQLNonNull(GraphQLString)
       }
     },
-    resolve: (root, {description}) => {
+    resolve: (userLogged, {description}) => {
       //TODO: delete when passport deserializeUser work
-      checkOcto(root);
+      checkOcto(userLogged);
 
-      return root.octo.orgs(description).fetch().then();
+      return userLogged.octo.orgs(description).fetch();
     }
   }
 };
-
-//TODO: delete when this type will be done
-// var orgs = {};
-// var orgs.query = new GraphQLObjectType({
-//   name: 'OrganizationsQuery',
-//   description: 'Get Organization by id (name)',
-//   fields: {
-//     orgs: {
-//       type: orgs.type,
-//       args: {
-//         id: {
-//           description: 'the id (name) of the organization',
-//           type: new GraphQLNonNull(GraphQLString)
-//         }
-//       },
-//       // organization for the entity
-//       // ie. either an Organization or User
-//       // this will return the Organization found as the
-//       // first argument to each field of the orgs.type
-//       resolve: (entity, {id}) => {
-//         return entity.orgs(id).fetch();
-//       }
-//     }
-//   }
-// }

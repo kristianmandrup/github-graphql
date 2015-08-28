@@ -3,8 +3,9 @@ import {
   GraphQLSchema,
 } from 'graphql';
 import orgQuery from './queries/orgs-query';
+import userQuery from './queries/user-query';
 
-let queries = [orgQuery];
+let queries = [orgQuery, userQuery];
 
 let fields = {};
 

@@ -27,3 +27,22 @@
 //     }
 //   }
 // }
+
+/*
+repo: {
+  type: repos.type,
+  description: 'A repo of the user by name',
+  args: {
+    id: {
+      name: 'name',
+      type: new GraphQLNonNull(GraphQLString)
+    }
+  },
+  // will be called with the user resolved by the UserQuery
+  // ie. from user(id: 'username')
+  resolve: (user) => {
+    return user.repos.fetch();
+  }
+}
+
+*/
